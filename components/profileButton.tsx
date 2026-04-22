@@ -6,7 +6,7 @@ async function handleGoToProfile() {
   const token = localStorage.getItem("token");
 
   try {
-    await QueryClient.fetchQuery({
+    await queryClient.fetchQuery({
       queryKey: ["profile"],
       queryFn: () =>
         fetch("/api/profile", {
