@@ -19,7 +19,9 @@ export function useAuth() {
       throw new Error("Failed to login");
       return;
     }
-    return response.json();
+    const loginInfo = await response.json();
+    console.log(loginInfo);
+    localStorage.setItem("jwt", loginInfo.jwt);
   }, []);
 
   const signup = useCallback(async (username: string, password: string, firstname: string, lastname: string, licensePlate: string) => {
