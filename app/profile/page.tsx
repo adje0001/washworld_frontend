@@ -16,6 +16,7 @@ export default function Profile() {
     queryKey: ["profile"],
     queryFn: () =>
       fetch("/api/profile", {
+        //Der er noget galt med dette i frontenden, JWT sendes ikke korrekt, så det er udkommenteret i app.py
         headers: { Authorization: `Bearer ${token ?? ""}` },
       }).then((res) => res.json()),
     staleTime: 60 * 1000,
