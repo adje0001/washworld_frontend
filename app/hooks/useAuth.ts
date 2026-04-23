@@ -5,7 +5,7 @@ import { useCallback, useEffect, useState } from "react";
 
 export function useAuth() {
   const queryClient = useQueryClient();
-  const baseUrl = "https://127.0.0.1/";
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? "";
 
   const login = useCallback(async (username: string, password: string) => {
     const response = await fetch(baseUrl + "/api/login", {
