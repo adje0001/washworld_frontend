@@ -10,8 +10,9 @@ export function useAuth() {
   const login = useCallback(async (username: string, password: string) => {
     const response = await fetch(baseUrl + "/api/login", {
       method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        username: username,
+        email: username,
         password: password,
       }),
     });

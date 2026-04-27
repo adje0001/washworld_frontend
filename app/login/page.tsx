@@ -2,20 +2,26 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useAuth } from "../hooks/useAuth";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
+  const { login } = useAuth();
 
   const handleSubmitLogin = async (e: any) => {
     e.preventDefault();
-
+    try {
+      await login(email, password);
+      alert("Login successful");
+    } catch (e) {
+      console.log(e);
+      alert("Something went wrong loggin in, try again");
+    }
     console.log(email, password);
-    // Hardcoded jwt som udskrives når man navigerer sig til profile-siden
-    localStorage.setItem("jwt", "Dette har jeg selv skrevet ind");
-    alert("Login successful");
-    router.push("/profile");
+
+    // router.push("/profile");
   };
 
   return (
