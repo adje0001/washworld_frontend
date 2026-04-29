@@ -22,7 +22,7 @@ export function useAuth() {
     }
     const loginInfo = await response.json();
     console.log(loginInfo);
-    localStorage.setItem("jwt", loginInfo.jwt);
+    localStorage.setItem("jwt", loginInfo.access_token);
   }, []);
 
   const signup = useCallback(async (username: string, password: string, firstname: string, lastname: string, licensePlate: string) => {

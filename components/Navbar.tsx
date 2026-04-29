@@ -10,8 +10,8 @@ export function Navbar() {
       </div>
       <div className="navbar__links">
         <Link href="/">Home</Link>
-        <Link href="/products">Bliv medlem</Link>
-        <Link href="/products/crud">Log in</Link>
+        <Link href="/signup">Bliv medlem</Link>
+        <Link href="/login">Log in</Link>
       </div>
     </nav>
   );
