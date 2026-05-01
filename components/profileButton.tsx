@@ -6,6 +6,9 @@ async function handleGoToProfile() {
   const token = localStorage.getItem("token");
 
   try {
+    //fetchQuery fetches and stores the result in the cache under [profile]
+    //If the profile page calls useQuery[profile] within staletime
+    //it reads from the cache - no second request
     await queryClient.fetchQuery({
       queryKey: ["profile"],
       queryFn: () =>
@@ -17,7 +20,7 @@ async function handleGoToProfile() {
         }),
     });
 
-    router.push("/profile");
+    router.push("/profile"); //Only navigates if the above didnt throw
   } catch {
     router.push("/login");
   }

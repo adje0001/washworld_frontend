@@ -21,7 +21,7 @@ function useProfile(token: string | null, onExpired: () => void) {
       if (!res.ok) throw new Error(await res.text());
       return res.json();
     },
-    staleTime: 60 * 1000,
+    staleTime: 60 * 1000, //how long to use the cached data from the previous call to this endpoint
     enabled: !!token, // Only run when token is available
   });
 }
