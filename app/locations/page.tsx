@@ -30,14 +30,14 @@ export default function Locations() {
       {/* Map shows all locations regardless of search filter */}
       {locations && <LocationsMap locations={locations} onSelect={setSelectedId} />}
 
-      {/* Search/filtering — satisfies search requirement */}
+      {/* Search/filtering */}
       <input type="text" placeholder="Søg efter by, navn eller postnummer..." value={search} onChange={(e) => setSearch(e.target.value)} />
 
-      {/* Conditional rendering — empty state */}
+      {/* Conditional rendering */}
       {filtered?.length === 0 && <p>Ingen vaskehaller matcher din søgning.</p>}
 
       <div className="locations-grid">
-        {/* Component-based architecture — satisfies component requirement */}
+        {/* Component-based architecture */}
         {filtered?.map((loc) => (
           <LocationCard key={loc.location_pk} location={loc} isSelected={selectedId === loc.location_pk} />
         ))}
