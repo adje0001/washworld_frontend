@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { useAuth } from "../hooks/useAuth";
+import { useAuthContext } from "../../components/AuthProvider";
 
 // Form validation — requirement: forms with validation
 function validateForm(email: string, password: string) {
@@ -18,7 +18,7 @@ export default function Login() {
   const [serverError, setServerError] = useState<string | null>(null);
   const [isPending, setIsPending] = useState(false);
   const router = useRouter();
-  const { login } = useAuth();
+  const { login } = useAuthContext();
 
   const handleSubmitLogin = async (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();

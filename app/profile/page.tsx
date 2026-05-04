@@ -3,6 +3,7 @@
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useAuthContext } from "../../components/AuthProvider";
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? "";
 
@@ -29,17 +30,12 @@ function useProfile(token: string | null, onExpired: () => void) {
 export default function Profile() {
   const [token, setToken] = useState<string | null>(null);
   const router = useRouter();
+  const { logout } = useAuthContext();
 
   // useEffect for side effects — reads JWT from localStorage after mount
   useEffect(() => {
     setToken(localStorage.getItem("jwt"));
   }, []);
-
-  const logout = () => {
-    localStorage.removeItem("jwt");
-    setToken(null);
-    router.push("/login");
-  };
 
   const { data: user, isLoading, isError, error } = useProfile(token, logout);
 
@@ -69,7 +65,7 @@ export default function Profile() {
       if (!res.ok) throw new Error(await res.text());
     },
     onSuccess: () => {
-      localStorage.removeItem("jwt");
+      logout();
       router.push("/");
     },
   });

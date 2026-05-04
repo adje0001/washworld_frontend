@@ -1,6 +1,13 @@
+"use client";
+
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useAuthContext } from "./AuthProvider";
 
 export function Navbar() {
+  const { isLoggedIn } = useAuthContext();
+  const router = useRouter();
+
   return (
     <nav className="navbar">
       <div className="navbar-brand">
@@ -11,7 +18,12 @@ export function Navbar() {
       <div className="navbar__links">
         <Link href="/">Home</Link>
         <Link href="/signup">Bliv medlem</Link>
-        <Link href="/login">Log in</Link>
+        {/* Conditional rendering — show logout when logged in, login when not */}
+        {isLoggedIn ? (
+          <button onClick={() => router.push("/logout")}>Log ud</button>
+        ) : (
+          <Link href="/login">Log ind</Link>
+        )}
       </div>
     </nav>
   );

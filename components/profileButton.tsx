@@ -1,9 +1,10 @@
 // Go to profile button
 "use client";
-import { QueryClient } from "@tanstack/react-query";
+import { QueryClient, useQueryClient } from "@tanstack/react-query";
 
 async function handleGoToProfile() {
   const token = localStorage.getItem("token");
+  const queryClient = useQueryClient();
 
   try {
     //fetchQuery fetches and stores the result in the cache under [profile]
@@ -16,6 +17,9 @@ async function handleGoToProfile() {
           headers: { Authorization: `Bearer ${token ?? ""}` },
         }).then(async (res) => {
           if (res.status === 401) throw new Error("401");
+
+          const user = res.json();
+
           return res.json();
         }),
     });
