@@ -1,26 +1,12 @@
 "use client";
 
-import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import dynamic from "next/dynamic";
-import { LocationCard, Location } from "../../components/LocationCard";
-
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? "";
+import { LocationCard } from "../../components/LocationCard";
+import { useLocations } from "../hooks/useWash";
 
 // Dynamic import — prevents SSR crash since Leaflet requires window
 const LocationsMap = dynamic(() => import("../../components/LocationsMap").then((m) => m.LocationsMap), { ssr: false });
-
-// Custom data fetching — satisfies TanStack Query requirement
-function useLocations() {
-  return useQuery<Location[]>({
-    queryKey: ["locations"],
-    queryFn: async () => {
-      const res = await fetch(`${baseUrl}/api/locations`);
-      if (!res.ok) throw new Error(await res.text());
-      return res.json();
-    },
-  });
-}
 
 export default function Locations() {
   const { data: locations, isLoading, isError } = useLocations();
