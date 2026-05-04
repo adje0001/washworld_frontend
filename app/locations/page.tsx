@@ -25,7 +25,7 @@ export default function Locations() {
 
   return (
     <div>
-      <h1>Vaskehaller</h1>
+      <h1>Vores vaskehaller</h1>
 
       {/* Map shows all locations regardless of search filter */}
       {locations && <LocationsMap locations={locations} onSelect={setSelectedId} />}
