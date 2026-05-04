@@ -17,13 +17,10 @@ export function Navbar() {
       </div>
       <div className="navbar__links">
         <Link href="/">Home</Link>
+        <Link href="/locations">Vaskehaller</Link>
         <Link href="/signup">Bliv medlem</Link>
         {/* Conditional rendering — show logout when logged in, login when not */}
-        {isLoggedIn ? (
-          <button onClick={() => router.push("/logout")}>Log ud</button>
-        ) : (
-          <Link href="/login">Log ind</Link>
-        )}
+        {isLoggedIn ? <button onClick={() => router.push("/logout")}>Log ud</button> : <Link href="/login">Profil</Link>}
       </div>
     </nav>
   );
