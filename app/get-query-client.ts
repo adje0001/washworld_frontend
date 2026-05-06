@@ -1,3 +1,6 @@
+//get-query-client creates and manages the TanStack Query QueryClient — the object that holds the cache for all your useQuery calls
+//On the server: creates a fresh client for every request so no cached data leaks
+//In the browser: creates it once and reuses the same instance so the cache survives across all pages
 import { QueryClient } from "@tanstack/react-query";
 
 function makeQueryClient() {

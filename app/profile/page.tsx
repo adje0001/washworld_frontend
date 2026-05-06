@@ -15,20 +15,21 @@ function useProfile(token: string | null, onExpired: () => void) {
       const res = await fetch(`${baseUrl}/api/profile`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      if (res.status === 400) {
+      if (res.status === 401) {
         onExpired();
-        throw new Error("Session udløbet. Log ind igen");
+        throw new Error("expired");
       }
       if (!res.ok) throw new Error(await res.text());
       return res.json();
     },
-    staleTime: 60 * 1000, //how long to use the cached data from the previous call to this endpoint
-    enabled: !!token, // Only run when token is available
+    staleTime: 60 * 1000,
+    enabled: !!token,
   });
 }
 
 export default function Profile() {
   const [token, setToken] = useState<string | null>(null);
+  const [sessionExpired, setSessionExpired] = useState(false);
   const router = useRouter();
   const { logout } = useAuthContext();
 
@@ -37,7 +38,22 @@ export default function Profile() {
     setToken(localStorage.getItem("jwt"));
   }, []);
 
-  const { data: user, isLoading, isError, error } = useProfile(token, logout);
+  // Redirect to home after showing expiry message
+  useEffect(() => {
+    if (!sessionExpired) return;
+    const timer = setTimeout(() => router.push("/"), 2000);
+    return () => clearTimeout(timer);
+  }, [sessionExpired]);
+
+  const {
+    data: user,
+    isLoading,
+    isError,
+    error,
+  } = useProfile(token, () => {
+    logout();
+    setSessionExpired(true);
+  });
 
   const {
     mutate: sendReset,
@@ -70,6 +86,8 @@ export default function Profile() {
     },
   });
 
+  // Conditional rendering — session expired
+  if (sessionExpired) return <p>Sessionen er udløbet. Du bliver sendt til forsiden...</p>;
   // Conditional rendering — loading state
   if (!token) return <p>Du er ikke logget ind</p>;
   if (isLoading) return <p>Henter profil…</p>;
