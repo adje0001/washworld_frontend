@@ -8,6 +8,8 @@ import { useAuthContext } from "../../components/AuthProvider";
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? "";
 
 // Custom hook — requirement: at least one custom hook
+//onExpired function gets passed as a parameter into the useProfile
+//When the fetch returns, the hook calls onExpired when 401 (unauthorized) hits from the backend
 function useProfile(token: string | null, onExpired: () => void) {
   return useQuery({
     queryKey: ["profile"],
@@ -39,19 +41,26 @@ export default function Profile() {
   }, []);
 
   // Redirect to home after showing expiry message
+  //Detects that sessionExpired is now true
+  //Re-runs once the sessionExpired changes
   useEffect(() => {
     if (!sessionExpired) return;
     const timer = setTimeout(() => router.push("/"), 2000);
     return () => clearTimeout(timer);
   }, [sessionExpired]);
 
+  //When useProfile is called we call the setSessionExpired
+  //We set the sessionExpired to true
+  //onExpired is a way for the hook to tell the component the token has expired
   const {
     data: user,
     isLoading,
     isError,
     error,
+    //useProfile is call, the arrow function is passed as onExpired
   } = useProfile(token, () => {
     logout();
+    //Now true, state changes and the component re-renders
     setSessionExpired(true);
   });
 
@@ -87,11 +96,18 @@ export default function Profile() {
   });
 
   // Conditional rendering — session expired
+  //If sessionExpired = true
   if (sessionExpired) return <p>Sessionen er udløbet. Du bliver sendt til forsiden...</p>;
+
   // Conditional rendering — loading state
+  //The users isnt logged in
   if (!token) return <p>Du er ikke logget ind</p>;
+
+  //Fetch to the backend /api/profile still in progress
   if (isLoading) return <p>Henter profil…</p>;
+
   // Conditional rendering — error state
+  //The fetch failed
   if (isError) return <p>Fejl: {(error as Error).message}</p>;
 
   return (
