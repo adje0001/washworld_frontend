@@ -20,7 +20,7 @@ export function Navbar() {
         <Link href="/locations">Vaskehaller</Link>
         <Link href="/signup">Bliv medlem</Link>
         {/* Conditional rendering — show logout when logged in, login when not */}
-        {isLoggedIn ? <button onClick={() => router.push("/logout")}>Log ud</button> : <Link href="/login">Profil</Link>}
+        {isLoggedIn ? <button onClick={() => router.push("/logout")}>Log ud</button> : <Link href="/login">Min profil</Link>}
       </div>
     </nav>
   );
