@@ -15,24 +15,34 @@ export function Navbar() {
     </Link>
   );
 
-  const links = (
+  const navLinks = (
     <>
       <Link href="/" className="hover:text-green-400 transition-colors" onClick={() => setMenuOpen(false)}>
-        Home
+        Forside
       </Link>
       <Link href="/locations" className="hover:text-green-400 transition-colors" onClick={() => setMenuOpen(false)}>
         Vaskehaller
       </Link>
-      {/* Conditional rendering — show profile when logged in, login when not */}
-      {isLoggedIn ? (
-        <Link href="/profile" className="border border-white/50 text-white px-4 md:py-1.5 py-2 rounded-xs text-center text-sm font-semibold hover:text-green-400 transition-colors" onClick={() => setMenuOpen(false)}>
-          Mit Wash World
-        </Link>
-      ) : (
-        <Link href="/login" className="border border-white/50 text-white px-4 md:py-1.5 py-2 rounded-xs text-center text-sm font-semibold hover:text-green-400 transition-colors" onClick={() => setMenuOpen(false)}>
-          Mit Wash World
-        </Link>
-      )}
+    </>
+  );
+
+  const mitWashWorldBtn = (
+    /* Conditional rendering — show profile when logged in, login when not */
+    isLoggedIn ? (
+      <Link href="/profile" className="border border-white/50 text-white px-4 md:py-1.5 py-2 rounded-xs text-center text-sm font-semibold hover:text-green-400 transition-colors" onClick={() => setMenuOpen(false)}>
+        Mit Wash World
+      </Link>
+    ) : (
+      <Link href="/login" className="border border-white/50 text-white px-4 md:py-1.5 py-2 rounded-xs text-center text-sm font-semibold hover:text-green-400 transition-colors" onClick={() => setMenuOpen(false)}>
+        Mit Wash World
+      </Link>
+    )
+  );
+
+  const links = (
+    <>
+      {navLinks}
+      {mitWashWorldBtn}
     </>
   );
 
@@ -44,9 +54,12 @@ export function Navbar() {
         </a>
 
         {/* Desktop links */}
-        <div className="hidden md:flex items-center gap-6 text-sm font-semibold">
-          {links}
-          {blivMedlemBtn}
+        <div className="hidden md:flex items-center gap-8 text-sm font-semibold">
+          <div className="flex items-center gap-6">{navLinks}</div>
+          <div className="flex items-center gap-3">
+            {mitWashWorldBtn}
+            {blivMedlemBtn}
+          </div>
         </div>
 
         {/* Mobile: button + hamburger */}
