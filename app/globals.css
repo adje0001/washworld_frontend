@@ -2,7 +2,7 @@
 @import "tailwindcss";
 
 :root {
-  --background: #DFF2E9;
+  --background: #dff2e9;
   --foreground: #171717;
 }
 
@@ -17,24 +17,4 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: "Gilroy", Arial, sans-serif;
-}
-
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 1.5rem;
-  background: #111827;
-  color: white;
-}
-
-.navbar__brand {
-  font-weight: 700;
-  font-size: 1.2rem;
-}
-
-.navbar__links {
-  display: flex;
-  gap: 1rem;
-  margin-right: 4rem;
 }

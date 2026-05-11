@@ -1,27 +1,75 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuthContext } from "./AuthProvider";
 
 export function Navbar() {
   const { isLoggedIn } = useAuthContext();
   const router = useRouter();
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const blivMedlemBtn = (
+    <Link href="/signup" className="bg-green-600 hover:bg-green-700 text-white px-4 py-1.5 rounded-xs transition-colors text-sm font-semibold" onClick={() => setMenuOpen(false)}>
+      Bliv medlem
+    </Link>
+  );
+
+  const links = (
+    <>
+      <Link href="/" className="hover:text-green-400 transition-colors" onClick={() => setMenuOpen(false)}>
+        Home
+      </Link>
+      <Link href="/locations" className="hover:text-green-400 transition-colors" onClick={() => setMenuOpen(false)}>
+        Vaskehaller
+      </Link>
+      {/* Conditional rendering — show logout when logged in, login when not */}
+      {isLoggedIn ? (
+        <button
+          onClick={() => {
+            router.push("/logout");
+            setMenuOpen(false);
+          }}
+          className="hover:text-green-400 transition-colors text-left"
+        >
+          Log ud
+        </button>
+      ) : (
+        <Link href="/login" className="hover:text-green-400 transition-colors" onClick={() => setMenuOpen(false)}>
+          Mit Wash World
+        </Link>
+      )}
+    </>
+  );
 
   return (
-    <nav className="navbar">
-      <div className="navbar-brand">
-        <a className="navbar-item" href="/">
-          <img src="https://bulma.io/images/bulma-logo.png" alt="Soon wash world" />
+    <nav className="bg-black text-white">
+      <div className="flex items-center justify-between md:px-12 px-4 py-3">
+        <a href="/">
+          <Image src="/logo.svg" alt="WashWorld" width={76} height={40} />
         </a>
+
+        {/* Desktop links */}
+        <div className="hidden md:flex items-center gap-6 text-sm font-semibold">
+          {links}
+          {blivMedlemBtn}
+        </div>
+
+        {/* Mobile: button + hamburger */}
+        <div className="md:hidden flex items-center gap-3">
+          {blivMedlemBtn}
+          <button className="flex flex-col gap-1.5 p-2" onClick={() => setMenuOpen((prev) => !prev)} aria-label="Toggle menu">
+            <span className={`block w-6 h-0.5 bg-white transition-transform duration-300 ${menuOpen ? "translate-y-2 rotate-45" : ""}`} />
+            <span className={`block w-6 h-0.5 bg-white transition-opacity duration-300 ${menuOpen ? "opacity-0" : ""}`} />
+            <span className={`block w-6 h-0.5 bg-white transition-transform duration-300 ${menuOpen ? "-translate-y-2 -rotate-45" : ""}`} />
+          </button>
+        </div>
       </div>
-      <div className="navbar__links">
-        <Link href="/">Home</Link>
-        <Link href="/locations">Vaskehaller</Link>
-        <Link href="/signup">Bliv medlem</Link>
-        {/* Conditional rendering — show logout when logged in, login when not */}
-        {isLoggedIn ? <button onClick={() => router.push("/logout")}>Log ud</button> : <Link href="/login">Min profil</Link>}
-      </div>
+
+      {/* Mobile menu */}
+      {menuOpen && <div className="md:hidden flex flex-col gap-4 px-12 pb-6 text-sm font-semibold">{links}</div>}
     </nav>
   );
 }

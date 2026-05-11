@@ -51,46 +51,18 @@ export default function Signup() {
 
   return (
     <div className="min-h-screen flex items-center justify-center">
-      <div className="w-full max-w-md bg-white rounded-2xl shadow-md p-8">
-        <h1 className="text-2xl font-bold text-gray-800 mb-6 text-center">Opret konto</h1>
+      <div className="w-full max-w-md bg-white rounded-xs shadow-md p-8">
+        <h1 className="text-2xl font-bold text-black mb-6 text-center">Opret konto</h1>
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-          <input
-            type="text"
-            placeholder="Fornavn"
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-            className="border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-          <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-          <input
-            type="password"
-            placeholder="Adgangskode"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-          <input
-            type="password"
-            placeholder="Bekræft adgangskode"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            className="border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
+          <input type="text" placeholder="Fornavn" value={firstName} onChange={(e) => setFirstName(e.target.value)} className="border border-gray-300 rounded-xs px-2 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500" />
+          <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} className="border border-gray-300 rounded-xs px-2 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500" />
+          <input type="password" placeholder="Adgangskode" value={password} onChange={(e) => setPassword(e.target.value)} className="border border-gray-300 rounded-xs px-2 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500" />
+          <input type="password" placeholder="Bekræft adgangskode" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} className="border border-gray-300 rounded-xs px-2 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500" />
           {/* Conditional rendering — validation error */}
           {validationError && <p className="text-red-500 text-sm">{validationError}</p>}
           {/* Conditional rendering — server error */}
           {isError && <p className="text-red-500 text-sm">{(error as Error).message}</p>}
-          <button
-            type="submit"
-            disabled={isPending}
-            className="bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white font-medium rounded-lg py-2 mt-2 transition-colors"
-          >
+          <button type="submit" disabled={isPending} className="bg-green-600 hover:bg-green-700 disabled:opacity-50 text-white font-semibold rounded-xs py-2 mt-2 transition-colors">
             {isPending ? "Opretter…" : "Opret min konto"}
           </button>
         </form>
