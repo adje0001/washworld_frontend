@@ -1,6 +1,7 @@
 "use client";
 
 import { useQuery, useMutation } from "@tanstack/react-query";
+import { useCars } from "../hooks/useCars";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAuthContext } from "../../components/AuthProvider";
@@ -81,6 +82,8 @@ export default function Profile() {
     },
   });
 
+  const { cars, carBrand, setCarBrand, carPlate, setCarPlate, addCar, isAddingCar } = useCars(token);
+
   const { mutate: deleteAccount, isPending: isDeleting } = useMutation({
     mutationFn: async () => {
       const res = await fetch(`${baseUrl}/api/users`, {
@@ -131,6 +134,32 @@ export default function Profile() {
       {resetFailed && <p>Kunne ikke sende reset-email. Prøv igen.</p>}
       <button onClick={() => deleteAccount()} disabled={isDeleting}>
         {isDeleting ? "Sletter…" : "Slet konto"}
+      </button>
+
+      <h2>Mine biler</h2>
+      {/* Conditional rendering — empty state */}
+      {cars?.length === 0 && <p>Du har ingen biler tilføjet endnu.</p>}
+      <ul>
+        {cars?.map((car: { car_pk: string; car_brand: string; car_license_plate: string }) => (
+          <li key={car.car_pk}>{car.car_brand} — {car.car_license_plate}</li>
+        ))}
+      </ul>
+
+      <h3>Tilføj bil</h3>
+      <input
+        type="text"
+        placeholder="Mærke (fx Toyota)"
+        value={carBrand}
+        onChange={(e) => setCarBrand(e.target.value)}
+      />
+      <input
+        type="text"
+        placeholder="Nummerplade (fx AB 12 345)"
+        value={carPlate}
+        onChange={(e) => setCarPlate(e.target.value)}
+      />
+      <button onClick={() => addCar()} disabled={isAddingCar || !carBrand || !carPlate}>
+        {isAddingCar ? "Tilføjer…" : "Tilføj bil"}
       </button>
     </div>
   );
