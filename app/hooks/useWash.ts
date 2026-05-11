@@ -1,7 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { Location } from "../../components/LocationCard";
-
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? "";
+import { baseUrl } from "../../lib/config";
 
 // useLocations fetches all wash hall locations from the API and returns them
 // via TanStack Query, giving the locations page loading and error states for free.

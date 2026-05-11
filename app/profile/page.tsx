@@ -1,34 +1,12 @@
 "use client";
 
-import { useQuery, useMutation } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { useCars } from "../hooks/useCars";
+import { useProfile } from "../hooks/useProfile";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAuthContext } from "../../components/AuthProvider";
-
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? "";
-
-// Custom hook — requirement: at least one custom hook
-//onExpired function gets passed as a parameter into the useProfile
-//When the fetch returns, the hook calls onExpired when 401 (unauthorized) hits from the backend
-function useProfile(token: string | null, onExpired: () => void) {
-  return useQuery({
-    queryKey: ["profile"],
-    queryFn: async () => {
-      const res = await fetch(`${baseUrl}/api/profile`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      if (res.status === 401) {
-        onExpired();
-        throw new Error("expired");
-      }
-      if (!res.ok) throw new Error(await res.text());
-      return res.json();
-    },
-    staleTime: 60 * 1000,
-    enabled: !!token,
-  });
-}
+import { baseUrl } from "../../lib/config";
 
 export default function Profile() {
   const [token, setToken] = useState<string | null>(null);
@@ -127,20 +105,14 @@ export default function Profile() {
         <strong>Din profil blev verificeret d.</strong> {user.user_verified_at ? new Date(user.user_verified_at * 1000).toLocaleString("da-DK") : "Nej"}
       </p>
       <button onClick={() => router.push("/logout")}>Log ud</button>
-      <br />
-      <br />
       <button onClick={() => sendReset(user.user_email)} disabled={isResetting || resetSent}>
         {isResetting ? "Sender…" : resetSent ? "Email sendt! Tjek din indbakke" : "Nulstil adgangskode"}
       </button>
-      <br />
-      <br />
       {/* Conditional rendering — reset error */}
       {resetFailed && <p>Kunne ikke sende reset-email. Prøv igen.</p>}
       <button onClick={() => deleteAccount()} disabled={isDeleting}>
         {isDeleting ? "Sletter…" : "Slet konto"}
       </button>
-      <br />
-      <br />
 
       <h2>Mine biler</h2>
       {/* Conditional rendering — empty state */}
@@ -149,7 +121,6 @@ export default function Profile() {
         {cars?.map((car: { car_pk: string; car_brand: string; car_license_plate: string }) => (
           <li key={car.car_pk}>
             {car.car_brand} {car.car_license_plate}
-            <br /> <br />
             <button onClick={() => deleteCar(car.car_pk)}>Slet bil</button>
           </li>
         ))}
