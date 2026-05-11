@@ -29,7 +29,7 @@ export function Navbar() {
           Profil
         </Link>
       ) : (
-        <Link href="/login" className="border border-white/50 text-white px-4 py-1.5 rounded-xs text-sm font-semibold hover:text-green-400 transition-colors" onClick={() => setMenuOpen(false)}>
+        <Link href="/login" className="border border-white/50 text-white px-4 py-1.5 rounded-xs text-center text-sm font-semibold hover:text-green-400 transition-colors" onClick={() => setMenuOpen(false)}>
           Mit Wash World
         </Link>
       )}
@@ -40,7 +40,7 @@ export function Navbar() {
     <nav className="bg-black text-white fixed top-0 left-0 right-0 z-500">
       <div className="flex items-center justify-between md:px-12 px-4 py-3">
         <a href="/">
-          <Image src="/logo.svg" alt="WashWorld" width={76} height={40} />
+          <Image src="/logo.svg" alt="WashWorld" width={0} height={0} className="md:h-8 md:w-auto h-7 w-auto" />
         </a>
 
         {/* Desktop links */}
