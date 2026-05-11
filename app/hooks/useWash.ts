@@ -8,9 +8,12 @@ export function useLocations() {
   return useQuery<Location[]>({
     queryKey: ["locations"],
     queryFn: async () => {
+      await new Promise((resolve) => setTimeout(resolve, 2000));
       const res = await fetch(`${baseUrl}/api/locations`);
       if (!res.ok) throw new Error(await res.text());
       return res.json();
     },
+    staleTime: 0,
+    gcTime: 0,
   });
 }

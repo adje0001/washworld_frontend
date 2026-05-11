@@ -8,6 +8,7 @@ export function useProfile(token: string | null, onExpired: () => void) {
   return useQuery({
     queryKey: ["profile"],
     queryFn: async () => {
+      await new Promise((resolve) => setTimeout(resolve, 2000));
       const res = await fetch(`${baseUrl}/api/profile`, {
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -18,7 +19,8 @@ export function useProfile(token: string | null, onExpired: () => void) {
       if (!res.ok) throw new Error(await res.text());
       return res.json();
     },
-    staleTime: 60 * 1000,
+    staleTime: 0,
+    gcTime: 0,
     enabled: !!token,
   });
 }

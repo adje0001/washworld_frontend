@@ -9,17 +9,17 @@ import { useLocations } from "../hooks/useWash";
 const LocationsMap = dynamic(() => import("../../components/LocationsMap").then((m) => m.LocationsMap), { ssr: false });
 
 export default function Locations() {
-  const { data: locations, isLoading, isError } = useLocations();
+  const { data: locations, isPending, isError } = useLocations();
   // State for search — satisfies search/filtering requirement
   const [search, setSearch] = useState("");
   // State for selected marker — controls which card is highlighted
   const [selectedId, setSelectedId] = useState<string | null>(null);
 
   // Conditional rendering — loading state
-  if (isLoading) return <p>Henter vaskehaller...</p>;
+  if (isPending) return <p className="pt-14">Henter vaskehaller...</p>;
 
   // Conditional rendering — error state
-  if (isError) return <p>Kunne ikke hente vaskehaller. Prøv igen.</p>;
+  if (isError) return <p className="pt-14">Kunne ikke hente vaskehaller. Prøv igen.</p>;
 
   const filtered = locations?.filter((loc) => `${loc.location_name} ${loc.location_city} ${loc.location_zip}`.toLowerCase().includes(search.toLowerCase()));
 
