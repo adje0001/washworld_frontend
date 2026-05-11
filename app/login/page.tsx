@@ -38,8 +38,8 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center">
-      <div className="w-full max-w-md bg-white rounded-xs shadow-md p-8">
+    <div className="min-h-screen flex items-center justify-center px-4">
+      <div className="w-full max-w-md bg-white rounded-xs shadow-md p-6 sm:p-8">
         <h1 className="text-2xl font-bold text-black mb-6 text-center">Log ind</h1>
         <form onSubmit={handleSubmitLogin} className="flex flex-col gap-4">
           <input type="email" name="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} className="border border-gray-300 rounded-xs px-2 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500" />
