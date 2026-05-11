@@ -3,12 +3,10 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { useAuthContext } from "./AuthProvider";
 
 export function Navbar() {
   const { isLoggedIn } = useAuthContext();
-  const router = useRouter();
   const [menuOpen, setMenuOpen] = useState(false);
 
   const blivMedlemBtn = (
@@ -25,17 +23,11 @@ export function Navbar() {
       <Link href="/locations" className="hover:text-green-400 transition-colors" onClick={() => setMenuOpen(false)}>
         Vaskehaller
       </Link>
-      {/* Conditional rendering — show logout when logged in, login when not */}
+      {/* Conditional rendering — show profile when logged in, login when not */}
       {isLoggedIn ? (
-        <button
-          onClick={() => {
-            router.push("/logout");
-            setMenuOpen(false);
-          }}
-          className="border border-white/50 text-white px-4 py-1.5 rounded-xs text-sm font-semibold hover:text-green-400 transition-colors cursor-pointer"
-        >
-          Log ud
-        </button>
+        <Link href="/profile" className="border border-white/50 text-white px-4 py-1.5 rounded-xs text-sm font-semibold hover:text-green-400 transition-colors" onClick={() => setMenuOpen(false)}>
+          Profil
+        </Link>
       ) : (
         <Link href="/login" className="border border-white/50 text-white px-4 py-1.5 rounded-xs text-sm font-semibold hover:text-green-400 transition-colors" onClick={() => setMenuOpen(false)}>
           Mit Wash World

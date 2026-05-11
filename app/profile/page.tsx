@@ -126,6 +126,9 @@ export default function Profile() {
       <p>
         <strong>Din profil blev verificeret d.</strong> {user.user_verified_at ? new Date(user.user_verified_at * 1000).toLocaleString("da-DK") : "Nej"}
       </p>
+      <button onClick={() => router.push("/logout")}>Log ud</button>
+      <br />
+      <br />
       <button onClick={() => sendReset(user.user_email)} disabled={isResetting || resetSent}>
         {isResetting ? "Sender…" : resetSent ? "Email sendt! Tjek din indbakke" : "Nulstil adgangskode"}
       </button>
