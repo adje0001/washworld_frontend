@@ -3,7 +3,7 @@ import { useState } from "react";
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? "";
 
-// useCars fetches the logged-in user's cars and provides an addCar mutation.
+// useCars fetches the logged-in user's cars and provides addCar and deleteCar mutations.
 // Requires the JWT token to authorize both requests against the backend.
 export function useCars(token: string | null) {
   const [carBrand, setCarBrand] = useState("");
@@ -11,7 +11,7 @@ export function useCars(token: string | null) {
 
   // Fetch the user's cars from the backend
   const { data: cars, refetch: refetchCars } = useQuery({
-    queryKey: ["cars"],
+    queryKey: ["cars", token],
     queryFn: async () => {
       const res = await fetch(`${baseUrl}/api/cars`, {
         headers: { Authorization: `Bearer ${token}` },
