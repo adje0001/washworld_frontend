@@ -23,7 +23,7 @@ export function useCars(token: string | null) {
   });
 
   // Add car mutation — POSTs brand and license plate to the backend
-  const { mutate: addCar, isPending: isAddingCar } = useMutation({
+  const { mutate: addCar, isPending: isAddingCar, isError: addCarFailed, error: addCarError } = useMutation({
     mutationFn: async () => {
       const res = await fetch(`${baseUrl}/api/cars`, {
         method: "POST",
@@ -42,5 +42,17 @@ export function useCars(token: string | null) {
     },
   });
 
-  return { cars, carBrand, setCarBrand, carPlate, setCarPlate, addCar, isAddingCar };
+  // Delete car mutation — sends DELETE request with car_pk in the URL
+  const { mutate: deleteCar } = useMutation({
+    mutationFn: async (car_pk: string) => {
+      const res = await fetch(`${baseUrl}/api/cars/${car_pk}`, {
+        method: "DELETE",
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (!res.ok) throw new Error(await res.text());
+    },
+    onSuccess: () => refetchCars(),
+  });
+
+  return { cars, carBrand, setCarBrand, carPlate, setCarPlate, addCar, isAddingCar, addCarFailed, addCarError, deleteCar };
 }
