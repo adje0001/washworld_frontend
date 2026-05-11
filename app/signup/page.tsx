@@ -47,7 +47,7 @@ export default function Signup() {
   };
 
   // Conditional rendering — success state
-  if (isSuccess) return <p className="text-center mt-10 text-green-600">Tjek din email for at aktivere din konto.</p>;
+  if (isSuccess) return <p className="min-h-screen flex  items-center justify-center font-semibold md:text-2xl text-sm text-green-600">Tjek din email for at aktivere din konto.</p>;
 
   return (
     <div className="min-h-screen flex items-center justify-center">
