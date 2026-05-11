@@ -13,7 +13,7 @@ export function useLocations() {
       if (!res.ok) throw new Error(await res.text());
       return res.json();
     },
-    staleTime: 10 * 60 * 1000,
+    staleTime: 10 * 60 * 1000, //Fresh for 10 minutes, locationsdata is basically static
     gcTime: 0,
   });
 }
