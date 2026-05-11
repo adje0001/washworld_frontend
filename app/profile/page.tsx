@@ -115,7 +115,7 @@ export default function Profile() {
   if (isError) return <p>Fejl: {(error as Error).message}</p>;
 
   return (
-    <div>
+    <div className="pt-14">
       <h1>Min profil</h1>
       <p>
         <strong>Hej!</strong> {user.user_name}
