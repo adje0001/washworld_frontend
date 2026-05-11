@@ -32,12 +32,12 @@ export function Navbar() {
             router.push("/logout");
             setMenuOpen(false);
           }}
-          className="hover:text-green-400 transition-colors text-left"
+          className="border border-white/50 text-white px-4 py-1.5 rounded-xs text-sm font-semibold hover:text-green-400 transition-colors cursor-pointer"
         >
           Log ud
         </button>
       ) : (
-        <Link href="/login" className="hover:text-green-400 transition-colors" onClick={() => setMenuOpen(false)}>
+        <Link href="/login" className="border border-white/50 text-white px-4 py-1.5 rounded-xs text-sm font-semibold hover:text-green-400 transition-colors" onClick={() => setMenuOpen(false)}>
           Mit Wash World
         </Link>
       )}
@@ -45,7 +45,7 @@ export function Navbar() {
   );
 
   return (
-    <nav className="bg-black text-white">
+    <nav className="bg-black text-white fixed top-0 left-0 right-0 z-500">
       <div className="flex items-center justify-between md:px-12 px-4 py-3">
         <a href="/">
           <Image src="/logo.svg" alt="WashWorld" width={76} height={40} />
@@ -69,7 +69,7 @@ export function Navbar() {
       </div>
 
       {/* Mobile menu */}
-      {menuOpen && <div className="md:hidden flex flex-col gap-4 px-12 pb-6 text-sm font-semibold">{links}</div>}
+      {menuOpen && <div className="md:hidden absolute top-full left-0 right-0 bg-black flex flex-col gap-4 px-6 py-6 text-sm font-semibold z-50">{links}</div>}
     </nav>
   );
 }

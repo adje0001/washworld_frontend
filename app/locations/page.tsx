@@ -24,7 +24,7 @@ export default function Locations() {
   const filtered = locations?.filter((loc) => `${loc.location_name} ${loc.location_city} ${loc.location_zip}`.toLowerCase().includes(search.toLowerCase()));
 
   return (
-    <div>
+    <div className="pt-14">
       <h1>Vores vaskehaller</h1>
 
       {/* Map shows all locations regardless of search filter */}

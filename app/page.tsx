@@ -8,12 +8,10 @@ export default function Home() {
   const router = useRouter();
 
   return (
-    <div>
+    <div className="pt-14">
       <h1>Forside</h1>
       {/* Conditional rendering — routes to profile if logged in, otherwise login */}
-      <button onClick={() => router.push(isLoggedIn ? "/profile" : "/login")}>
-        Min profil
-      </button>
+      <button onClick={() => router.push(isLoggedIn ? "/profile" : "/login")}>Min profil</button>
     </div>
   );
 }
