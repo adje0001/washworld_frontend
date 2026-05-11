@@ -13,7 +13,7 @@ export function useLocations() {
       if (!res.ok) throw new Error(await res.text());
       return res.json();
     },
-    staleTime: 0,
+    staleTime: 10 * 60 * 1000,
     gcTime: 0,
   });
 }
