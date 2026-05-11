@@ -1,7 +1,6 @@
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { useState } from "react";
-
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? "";
+import { baseUrl } from "../../lib/config";
 
 // useCars fetches the logged-in user's cars and provides addCar and deleteCar mutations.
 // Requires the JWT token to authorize both requests against the backend.
