@@ -12,11 +12,14 @@ interface Props {
   userEmail: string;
 }
 
-// Component-based architecture — account actions extracted from profile page
+// Component-based, account actions extracted from profile page
+//Recieves 2 props from the profilepage. Token(JWT) and userEmail.
+//In here we call 2 hooks we need. UseRouter for navigation and useAuthContext for the logout
 export function AccountActions({ token, userEmail }: Props) {
   const router = useRouter();
   const { logout } = useAuthContext();
 
+  //When called it POSTs the users email to the route, and shows "Sender..." and "Email sendt"
   const {
     mutate: sendReset,
     isPending: isResetting,
@@ -33,7 +36,8 @@ export function AccountActions({ token, userEmail }: Props) {
       if (!res.ok) throw new Error(await res.text());
     },
   });
-
+  //Sends a DELETE request to the route with the JWT in the auth header
+  //On success it calls logout() to clear the token from localStorage and redirects
   const { mutate: deleteAccount, isPending: isDeleting } = useMutation({
     mutationFn: async () => {
       const res = await fetch(`${baseUrl}/api/users`, {
@@ -48,6 +52,8 @@ export function AccountActions({ token, userEmail }: Props) {
     },
   });
 
+  //Button logs the user out and redirects to page.tsx logout which handles the logic
+  //None of the 3 buttons know anything about cars or the users profile data, then only need token and userEmail
   return (
     <>
       <button onClick={() => router.push("/logout")}>Log ud</button>
