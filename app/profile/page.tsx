@@ -97,7 +97,13 @@ export default function Profile() {
       <h1 className="text-2xl font-bold text-gray-900 mb-4">Mit Wash World</h1>
 
       <div className="flex flex-col md:flex-row gap-4 items-start justify-center">
-        {/* Left column — user info + log out */}
+        {/* Left column — cars */}
+        <div className="w-full md:max-w-sm bg-white rounded-xs shadow-sm p-5">
+          <CarsList cars={cars} deleteCar={deleteCar} />
+          <AddCarForm carBrand={carBrand} setCarBrand={setCarBrand} carPlate={carPlate} setCarPlate={setCarPlate} addCar={addCar} isAddingCar={isAddingCar} addCarFailed={addCarFailed} addCarError={addCarError} />
+        </div>
+
+        {/* Right column — user info + log out */}
         <div className="w-full md:w-72 shrink-0 flex flex-col gap-4">
           <div className="bg-white rounded-xs shadow-sm p-5">
             <div className="flex items-center gap-4 pb-4 border-b border-gray-100">
@@ -108,20 +114,14 @@ export default function Profile() {
               </div>
             </div>
             <div className="pt-4 flex items-start justify-between">
+              <AccountActions token={token} userEmail={user.user_email} variant="actions" />
               <div>
                 <p className="text-gray-500 text-xs">Medlem siden</p>
                 <p className="font-semibold text-sm text-gray-800">{user.user_verified_at ? new Date(user.user_verified_at * 1000).toLocaleDateString("da-DK") : "Ikke verificeret"}</p>
               </div>
-              <AccountActions token={token} userEmail={user.user_email} variant="actions" />
             </div>
           </div>
           <AccountActions token={token} userEmail={user.user_email} />
-        </div>
-
-        {/* Right column — cars */}
-        <div className="w-full md:max-w-sm bg-white rounded-xs shadow-sm p-5">
-          <CarsList cars={cars} deleteCar={deleteCar} />
-          <AddCarForm carBrand={carBrand} setCarBrand={setCarBrand} carPlate={carPlate} setCarPlate={setCarPlate} addCar={addCar} isAddingCar={isAddingCar} addCarFailed={addCarFailed} addCarError={addCarError} />
         </div>
       </div>
     </div>

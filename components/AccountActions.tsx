@@ -77,7 +77,7 @@ export function AccountActions({ token, userEmail, variant = "logout" }: Props) 
     );
 
   return (
-    <button onClick={() => router.push("/logout")} className="w-full bg-red-400 hover:bg-red-500 text-white font-semibold rounded-xs py-3 text-sm transition-colors cursor-pointer">
+    <button onClick={() => router.push("/logout")} className="w-full bg-red-500 hover:bg-red-600 text-white font-semibold rounded-xs py-3 text-sm transition-colors cursor-pointer">
       Log ud
     </button>
   );
