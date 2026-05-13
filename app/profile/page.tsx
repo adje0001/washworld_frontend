@@ -5,9 +5,9 @@ import { useProfile } from "../hooks/useProfile";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAuthContext } from "../../components/AuthProvider";
-import { AccountActions } from "../../components/profile/AccountActions";
-import { CarsList } from "../../components/profile/CarsList";
-import { AddCarForm } from "../../components/profile/AddCarForm";
+import { AccountActions } from "../../components/AccountActions";
+import { CarsList } from "../../components/CarsList";
+import { AddCarForm } from "../../components/AddCarForm";
 
 export default function Profile() {
   const [token, setToken] = useState<string | null>(null);
