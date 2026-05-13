@@ -45,11 +45,18 @@ export function AccountActions({ token, userEmail, variant = "logout" }: Props) 
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       });
+      if (res.status === 401) throw new Error("unauthorized");
       if (!res.ok) throw new Error(await res.text());
     },
     onSuccess: () => {
       logout();
       router.push("/");
+    },
+    onError: (error) => {
+      if ((error as Error).message === "unauthorized") {
+        logout();
+        router.push("/");
+      }
     },
   });
 

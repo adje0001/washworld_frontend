@@ -20,7 +20,7 @@ export default function Profile() {
     setToken(localStorage.getItem("jwt"));
   }, []);
 
-  // Redirect to home after showing expiry message
+  //Redirect to home after showing expiry message
   //Detects that sessionExpired is now true
   //Re-runs once the sessionExpired changes
   useEffect(() => {
@@ -31,21 +31,24 @@ export default function Profile() {
 
   //When useProfile is called we call the setSessionExpired
   //We set the sessionExpired to true
-  //onExpired is a way for the hook to tell the component the token has expired
   const {
     data: user,
     isLoading,
     isError,
     error,
-    //useProfile is call, the arrow function is passed as onExpired
+    //useProfile is called, the arrow function is passed as onUnauthorized
   } = useProfile(token, () => {
     logout();
     //Now true, state changes and the component re-renders
+    //onUnauthorized is a way for the hook to tell the component the token has expired
     setSessionExpired(true);
   });
 
   //Calls the hook from useCars
-  const { cars, carBrand, setCarBrand, carPlate, setCarPlate, addCar, isAddingCar, addCarFailed, addCarError, deleteCar } = useCars(token);
+  const { cars, carBrand, setCarBrand, carPlate, setCarPlate, addCar, isAddingCar, addCarFailed, addCarError, deleteCar } = useCars(token, () => {
+    logout();
+    setSessionExpired(true);
+  });
 
   // Conditional rendering — session expired
   //If sessionExpired = true
