@@ -25,8 +25,11 @@ export function AddCarForm({ carBrand, setCarBrand, carPlate, setCarPlate, addCa
       <input type="text" placeholder="Nummerplade (fx AB 12 345)" value={carPlate} onChange={(e) => setCarPlate(e.target.value)} className="border border-gray-300 rounded-xs px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 w-full" />
       <button
         onClick={() => {
-          setCarSubmitAttempted(true);
-          if (carBrand && carPlate) addCar();
+          if (carBrand && carPlate) {
+            addCar();
+          } else {
+            setCarSubmitAttempted(true);
+          }
         }}
         disabled={isAddingCar}
         className="bg-green-600 hover:bg-green-700 disabled:opacity-50 text-white font-semibold rounded-xs py-2.5 text-sm transition-colors w-full cursor-pointer"
