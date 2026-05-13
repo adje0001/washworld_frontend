@@ -30,7 +30,7 @@ export default function Logout() {
     return () => clearTimeout(timer);
   }, []);
 
-  //Returns null = renders nothing while the effect hasnt run yet
+  //Returns null = renders nothing while the useEffect hasnt run yet
   if (hasToken === null) return null;
 
   // Conditional rendering not logged in
