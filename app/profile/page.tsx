@@ -90,34 +90,37 @@ export default function Profile() {
     .toUpperCase();
 
   return (
-    <div className="max-w-sm mx-auto px-4 py-6">
+    <div className="max-w-2xl mx-auto px-4 py-6">
       <h1 className="text-2xl font-bold text-gray-900 mb-4">Mit Wash World</h1>
 
-      {/* User info card */}
-      <div className="bg-white rounded-xs shadow-sm p-5 mb-4">
-        <div className="flex items-center gap-4 pb-4 border-b border-gray-100">
-          <div className="w-14 h-14 rounded-full bg-green-500 flex items-center justify-center text-white font-bold text-lg shrink-0">{initials}</div>
-          <div>
-            <p className="font-bold text-gray-900">{user.user_name}</p>
-            <p className="text-gray-500 text-sm">{user.user_email}</p>
+      <div className="flex flex-col md:flex-row gap-4 items-start justify-center">
+        {/* Left column — user info + log out */}
+        <div className="w-full md:w-72 shrink-0 flex flex-col gap-4">
+          <div className="bg-white rounded-xs shadow-sm p-5">
+            <div className="flex items-center gap-4 pb-4 border-b border-gray-100">
+              <div className="w-14 h-14 rounded-full bg-green-500 flex items-center justify-center text-white font-bold text-lg shrink-0">{initials}</div>
+              <div>
+                <p className="font-bold text-gray-900">{user.user_name}</p>
+                <p className="text-gray-500 text-sm">{user.user_email}</p>
+              </div>
+            </div>
+            <div className="pt-4 flex items-start justify-between">
+              <div>
+                <p className="text-gray-500 text-xs">Medlem siden</p>
+                <p className="font-semibold text-sm text-gray-800">{user.user_verified_at ? new Date(user.user_verified_at * 1000).toLocaleDateString("da-DK") : "Ikke verificeret"}</p>
+              </div>
+              <AccountActions token={token} userEmail={user.user_email} variant="actions" />
+            </div>
           </div>
+          <AccountActions token={token} userEmail={user.user_email} />
         </div>
-        <div className="pt-4 flex items-start justify-between">
-          <AccountActions token={token} userEmail={user.user_email} variant="actions" />
-          <div>
-            <p className="text-gray-500 text-xs">Medlem siden</p>
-            <p className="font-semibold text-sm text-gray-800">{user.user_verified_at ? new Date(user.user_verified_at * 1000).toLocaleDateString("da-DK") : "Ikke verificeret"}</p>
-          </div>
+
+        {/* Right column — cars */}
+        <div className="w-full md:max-w-sm bg-white rounded-xs shadow-sm p-5">
+          <CarsList cars={cars} deleteCar={deleteCar} />
+          <AddCarForm carBrand={carBrand} setCarBrand={setCarBrand} carPlate={carPlate} setCarPlate={setCarPlate} addCar={addCar} isAddingCar={isAddingCar} addCarFailed={addCarFailed} addCarError={addCarError} />
         </div>
       </div>
-
-      {/* Cars card */}
-      <div className="bg-white rounded-xs shadow-sm p-5 mb-4">
-        <CarsList cars={cars} deleteCar={deleteCar} />
-        <AddCarForm carBrand={carBrand} setCarBrand={setCarBrand} carPlate={carPlate} setCarPlate={setCarPlate} addCar={addCar} isAddingCar={isAddingCar} addCarFailed={addCarFailed} addCarError={addCarError} />
-      </div>
-
-      <AccountActions token={token} userEmail={user.user_email} />
     </div>
   );
 }
