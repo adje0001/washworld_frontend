@@ -48,21 +48,21 @@ export default function Profile() {
 
   // Conditional rendering — session expired
   //If sessionExpired = true
-  if (sessionExpired) return <p className="pt-14">Sessionen er udløbet. Du bliver sendt til forsiden...</p>;
+  if (sessionExpired) return <p className="">Sessionen er udløbet. Du bliver sendt til forsiden...</p>;
 
   // Conditional rendering — loading state
   //The users isnt logged in
-  if (!token) return <p className="pt-14">Du er ikke logget ind</p>;
+  if (!token) return <p className="">Du er ikke logget ind</p>;
 
   //Fetch to the backend /api/profile still in progress
-  if (isLoading) return <p className="pt-14">Henter profil…</p>;
+  if (isLoading) return <p className="">Henter profil…</p>;
 
   // Conditional rendering — error state
   //The fetch failed
-  if (isError) return <p className="pt-14">Fejl: {(error as Error).message}</p>;
+  if (isError) return <p className="">Fejl: {(error as Error).message}</p>;
 
   return (
-    <div className="pt-14">
+    <div className="">
       <h1>Min profil</h1>
       <p>
         <strong>Hej!</strong> {user.user_name}

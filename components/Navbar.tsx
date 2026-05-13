@@ -46,7 +46,7 @@ export function Navbar() {
   );
 
   return (
-    <nav className="bg-black text-white fixed top-0 left-0 right-0 z-500">
+    <nav className="bg-black text-white fixed top-0 left-0 right-0 z-5000">
       <div className="flex items-center justify-between md:px-12 px-4 py-3">
         <a href="/">
           <Image src="/logo.svg" alt="WashWorld" width={0} height={0} className="md:h-8 md:w-auto h-7 w-auto" />
@@ -73,7 +73,7 @@ export function Navbar() {
       </div>
 
       {/* Mobile menu */}
-      {menuOpen && <div className="md:hidden absolute top-full left-0 right-0 bg-black flex flex-col gap-4 px-6 py-6 text-sm font-semibold z-50">{links}</div>}
+      {menuOpen && <div className="md:hidden absolute top-full left-0 right-0 bg-black flex flex-col gap-4 px-6 py-6 text-sm font-semibold z-5000">{links}</div>}
     </nav>
   );
 }
