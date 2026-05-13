@@ -102,12 +102,12 @@ export default function Profile() {
             <p className="text-gray-500 text-sm">{user.user_email}</p>
           </div>
         </div>
-        <div className="pt-4 flex items-center justify-between">
+        <div className="pt-4 flex items-start justify-between">
+          <AccountActions token={token} userEmail={user.user_email} variant="actions" />
           <div>
             <p className="text-gray-500 text-xs">Medlem siden</p>
             <p className="font-semibold text-sm text-gray-800">{user.user_verified_at ? new Date(user.user_verified_at * 1000).toLocaleDateString("da-DK") : "Ikke verificeret"}</p>
           </div>
-          <span className="bg-green-100 text-green-700 text-xs font-semibold px-3 py-1 rounded-full">• Aktiv</span>
         </div>
       </div>
 

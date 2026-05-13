@@ -10,12 +10,13 @@ import { baseUrl } from "../lib/config";
 interface Props {
   token: string | null;
   userEmail: string;
+  variant?: "logout" | "actions";
 }
 
 // Component-based, account actions extracted from profile page
 //Recieves 2 props from the profilepage. Token(JWT) and userEmail.
 //In here we call 2 hooks we need. UseRouter for navigation and useAuthContext for the logout
-export function AccountActions({ token, userEmail }: Props) {
+export function AccountActions({ token, userEmail, variant = "logout" }: Props) {
   const router = useRouter();
   const { logout } = useAuthContext();
 
@@ -54,19 +55,23 @@ export function AccountActions({ token, userEmail }: Props) {
 
   //Button logs the user out and redirects to page.tsx logout which handles the logic
   //None of the 3 buttons know anything about cars or the users profile data, then only need token and userEmail
+  if (variant === "actions")
+    return (
+      <div className="flex flex-col gap-1">
+        <button onClick={() => sendReset(userEmail)} disabled={isResetting || resetSent} className="text-gray-500 hover:text-gray-700 text-sm py-0.5 transition-colors disabled:opacity-50 cursor-pointer text-left">
+          {isResetting ? "Sender…" : resetSent ? "Email sendt!" : "Nulstil adgangskode"}
+        </button>
+        {/* Conditional rendering — reset error */}
+        {resetFailed && <p className="text-red-500 text-xs">Kunne ikke sende reset-email. Prøv igen.</p>}
+        <button onClick={() => deleteAccount()} disabled={isDeleting} className="text-red-400 hover:text-red-600 text-sm py-0.5 transition-colors disabled:opacity-50 cursor-pointer text-left">
+          {isDeleting ? "Sletter…" : "Slet konto"}
+        </button>
+      </div>
+    );
+
   return (
-    <div className="flex flex-col gap-3">
-      <button onClick={() => router.push("/logout")} className="w-full bg-red-400 hover:bg-red-500 text-white font-semibold rounded-xs py-3 text-sm transition-colors cursor-pointer">
-        Log ud
-      </button>
-      <button onClick={() => sendReset(userEmail)} disabled={isResetting || resetSent} className="w-full text-gray-500 hover:text-gray-700 text-sm py-1 transition-colors disabled:opacity-50 cursor-pointer">
-        {isResetting ? "Sender…" : resetSent ? "Email sendt! Tjek din indbakke" : "Nulstil adgangskode"}
-      </button>
-      {/* Conditional rendering — reset error */}
-      {resetFailed && <p className="text-red-500 text-xs text-center">Kunne ikke sende reset-email. Prøv igen.</p>}
-      <button onClick={() => deleteAccount()} disabled={isDeleting} className="w-full text-red-400 hover:text-red-600 text-sm py-1 transition-colors disabled:opacity-50 cursor-pointer">
-        {isDeleting ? "Sletter…" : "Slet konto"}
-      </button>
-    </div>
+    <button onClick={() => router.push("/logout")} className="w-full bg-red-400 hover:bg-red-500 text-white font-semibold rounded-xs py-3 text-sm transition-colors cursor-pointer">
+      Log ud
+    </button>
   );
 }
