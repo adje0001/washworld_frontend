@@ -55,16 +55,18 @@ export function AccountActions({ token, userEmail }: Props) {
   //Button logs the user out and redirects to page.tsx logout which handles the logic
   //None of the 3 buttons know anything about cars or the users profile data, then only need token and userEmail
   return (
-    <>
-      <button onClick={() => router.push("/logout")}>Log ud</button>
-      <button onClick={() => sendReset(userEmail)} disabled={isResetting || resetSent}>
+    <div className="flex flex-col gap-3">
+      <button onClick={() => router.push("/logout")} className="w-full bg-red-400 hover:bg-red-500 text-white font-semibold rounded-xs py-3 text-sm transition-colors">
+        Log ud
+      </button>
+      <button onClick={() => sendReset(userEmail)} disabled={isResetting || resetSent} className="w-full text-gray-500 hover:text-gray-700 text-sm py-1 transition-colors disabled:opacity-50">
         {isResetting ? "Sender…" : resetSent ? "Email sendt! Tjek din indbakke" : "Nulstil adgangskode"}
       </button>
       {/* Conditional rendering — reset error */}
-      {resetFailed && <p>Kunne ikke sende reset-email. Prøv igen.</p>}
-      <button onClick={() => deleteAccount()} disabled={isDeleting}>
+      {resetFailed && <p className="text-red-500 text-xs text-center">Kunne ikke sende reset-email. Prøv igen.</p>}
+      <button onClick={() => deleteAccount()} disabled={isDeleting} className="w-full text-red-400 hover:text-red-600 text-sm py-1 transition-colors disabled:opacity-50">
         {isDeleting ? "Sletter…" : "Slet konto"}
       </button>
-    </>
+    </div>
   );
 }
