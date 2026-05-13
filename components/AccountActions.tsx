@@ -1,3 +1,5 @@
+//Reset password og delete account requests
+
 "use client";
 
 import { useMutation } from "@tanstack/react-query";

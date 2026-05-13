@@ -44,6 +44,7 @@ export default function Profile() {
     setSessionExpired(true);
   });
 
+  //Calls the hook from useCars
   const { cars, carBrand, setCarBrand, carPlate, setCarPlate, addCar, isAddingCar, addCarFailed, addCarError, deleteCar } = useCars(token);
 
   // Conditional rendering — session expired
@@ -75,16 +76,7 @@ export default function Profile() {
       </p>
       <AccountActions token={token} userEmail={user.user_email} />
       <CarsList cars={cars} deleteCar={deleteCar} />
-      <AddCarForm
-        carBrand={carBrand}
-        setCarBrand={setCarBrand}
-        carPlate={carPlate}
-        setCarPlate={setCarPlate}
-        addCar={addCar}
-        isAddingCar={isAddingCar}
-        addCarFailed={addCarFailed}
-        addCarError={addCarError}
-      />
+      <AddCarForm carBrand={carBrand} setCarBrand={setCarBrand} carPlate={carPlate} setCarPlate={setCarPlate} addCar={addCar} isAddingCar={isAddingCar} addCarFailed={addCarFailed} addCarError={addCarError} />
     </div>
   );
 }
