@@ -30,7 +30,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col bg-[#DFF2E9]">
         <AuthProvider>
           <Navbar />
-          <QueryProvider>{children}</QueryProvider>
+          <QueryProvider><main className="pt-14">{children}</main></QueryProvider>
         </AuthProvider>
       </body>
     </html>

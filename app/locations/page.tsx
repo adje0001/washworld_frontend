@@ -16,15 +16,15 @@ export default function Locations() {
   const [selectedId, setSelectedId] = useState<string | null>(null);
 
   // Conditional rendering — loading state
-  if (isPending) return <p className="pt-14">Henter vaskehaller...</p>;
+  if (isPending) return <p>Henter vaskehaller...</p>;
 
   // Conditional rendering — error state
-  if (isError) return <p className="pt-14">Kunne ikke hente vaskehaller. Prøv igen.</p>;
+  if (isError) return <p>Kunne ikke hente vaskehaller. Prøv igen.</p>;
 
   const filtered = locations?.filter((loc) => `${loc.location_name} ${loc.location_city} ${loc.location_zip}`.toLowerCase().includes(search.toLowerCase()));
 
   return (
-    <div className="pt-14">
+    <div>
       <h1>Vores vaskehaller</h1>
 
       {/* Map shows all locations regardless of search filter */}

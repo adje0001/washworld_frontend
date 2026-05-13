@@ -15,5 +15,5 @@ export default function Logout() {
     return () => clearTimeout(timer);
   }, []);
 
-  return <p className="pt-14">Du er nu logget ud og vender retur til forsiden</p>;
+  return <p>Du er nu logget ud og vender retur til forsiden</p>;
 }
