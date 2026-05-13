@@ -64,7 +64,7 @@ export function Navbar() {
         {/* Mobile: button + hamburger */}
         <div className="md:hidden flex items-center gap-3">
           {blivMedlemBtn}
-          <button className="flex flex-col gap-1.5 p-2" onClick={() => setMenuOpen((prev) => !prev)} aria-label="Toggle menu">
+          <button className="flex flex-col gap-1.5 p-2 cursor-pointer" onClick={() => setMenuOpen((prev) => !prev)} aria-label="Toggle menu">
             <span className={`block w-6 h-0.5 bg-white transition-transform duration-300 ${menuOpen ? "translate-y-2 rotate-45" : ""}`} />
             <span className={`block w-6 h-0.5 bg-white transition-opacity duration-300 ${menuOpen ? "opacity-0" : ""}`} />
             <span className={`block w-6 h-0.5 bg-white transition-transform duration-300 ${menuOpen ? "-translate-y-2 -rotate-45" : ""}`} />

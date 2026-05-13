@@ -20,23 +20,23 @@ export function AddCarForm({ carBrand, setCarBrand, carPlate, setCarPlate, addCa
   const [carSubmitAttempted, setCarSubmitAttempted] = useState(false);
 
   return (
-    <>
-      <h3>Tilføj bil</h3>
-      <input type="text" placeholder="Mærke (fx Toyota)" value={carBrand} onChange={(e) => setCarBrand(e.target.value)} />
-      <input type="text" placeholder="Nummerplade (fx AB 12 345)" value={carPlate} onChange={(e) => setCarPlate(e.target.value)} />
+    <div className="mt-4 pt-4 border-t border-gray-100 flex flex-col gap-3">
+      <input type="text" placeholder="Mærke (fx Toyota)" value={carBrand} onChange={(e) => setCarBrand(e.target.value)} className="border border-gray-300 rounded-xs px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 w-full" />
+      <input type="text" placeholder="Nummerplade (fx AB 12 345)" value={carPlate} onChange={(e) => setCarPlate(e.target.value)} className="border border-gray-300 rounded-xs px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 w-full" />
       <button
         onClick={() => {
           setCarSubmitAttempted(true);
           if (carBrand && carPlate) addCar();
         }}
         disabled={isAddingCar}
+        className="bg-green-600 hover:bg-green-700 disabled:opacity-50 text-white font-semibold rounded-xs py-2.5 text-sm transition-colors w-full cursor-pointer"
       >
-        {isAddingCar ? "Tilføjer…" : "Tilføj bil"}
+        {isAddingCar ? "Tilføjer…" : "Tilføj køretøj"}
       </button>
       {/* Conditional rendering — empty field validation on submit */}
-      {carSubmitAttempted && (!carBrand || !carPlate) && <p>Begge felter skal udfyldes</p>}
+      {carSubmitAttempted && (!carBrand || !carPlate) && <p className="text-red-500 text-xs">Begge felter skal udfyldes</p>}
       {/* Conditional rendering — add car error from backend */}
-      {addCarFailed && <p>{(addCarError as Error).message}</p>}
-    </>
+      {addCarFailed && <p className="text-red-500 text-xs">{(addCarError as Error).message}</p>}
+    </div>
   );
 }

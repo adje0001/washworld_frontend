@@ -49,34 +49,75 @@ export default function Profile() {
 
   // Conditional rendering — session expired
   //If sessionExpired = true
-  if (sessionExpired) return <p className="">Sessionen er udløbet. Du bliver sendt til forsiden...</p>;
+  if (sessionExpired)
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <p className="text-gray-500 text-sm">Sessionen er udløbet. Du bliver sendt til forsiden...</p>
+      </div>
+    );
 
   // Conditional rendering — loading state
   //The users isnt logged in
-  if (!token) return <p className="">Du er ikke logget ind</p>;
+  if (!token)
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <p className="text-gray-500 text-sm">Du er ikke logget ind</p>
+      </div>
+    );
 
   //Fetch to the backend /api/profile still in progress
-  if (isLoading) return <p className="">Henter profil…</p>;
+  if (isLoading)
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <p className="text-gray-500 text-sm">Henter profil…</p>
+      </div>
+    );
 
   // Conditional rendering — error state
   //The fetch failed
-  if (isError) return <p className="">Fejl: {(error as Error).message}</p>;
+  if (isError)
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <p className="text-red-500 text-sm">Fejl: {(error as Error).message}</p>
+      </div>
+    );
+
+  const initials = user.user_name
+    .split(" ")
+    .map((n: string) => n[0])
+    .join("")
+    .slice(0, 2)
+    .toUpperCase();
 
   return (
-    <div className="">
-      <h1>Min profil</h1>
-      <p>
-        <strong>Hej!</strong> {user.user_name}
-      </p>
-      <p>
-        <strong>Email:</strong> {user.user_email}
-      </p>
-      <p>
-        <strong>Din profil blev verificeret d.</strong> {user.user_verified_at ? new Date(user.user_verified_at * 1000).toLocaleString("da-DK") : "Nej"}
-      </p>
+    <div className="max-w-sm mx-auto px-4 py-6">
+      <h1 className="text-2xl font-bold text-gray-900 mb-4">Mit Wash World</h1>
+
+      {/* User info card */}
+      <div className="bg-white rounded-xs shadow-sm p-5 mb-4">
+        <div className="flex items-center gap-4 pb-4 border-b border-gray-100">
+          <div className="w-14 h-14 rounded-full bg-green-500 flex items-center justify-center text-white font-bold text-lg shrink-0">{initials}</div>
+          <div>
+            <p className="font-bold text-gray-900">{user.user_name}</p>
+            <p className="text-gray-500 text-sm">{user.user_email}</p>
+          </div>
+        </div>
+        <div className="pt-4 flex items-start justify-between">
+          <AccountActions token={token} userEmail={user.user_email} variant="actions" />
+          <div>
+            <p className="text-gray-500 text-xs">Medlem siden</p>
+            <p className="font-semibold text-sm text-gray-800">{user.user_verified_at ? new Date(user.user_verified_at * 1000).toLocaleDateString("da-DK") : "Ikke verificeret"}</p>
+          </div>
+        </div>
+      </div>
+
+      {/* Cars card */}
+      <div className="bg-white rounded-xs shadow-sm p-5 mb-4">
+        <CarsList cars={cars} deleteCar={deleteCar} />
+        <AddCarForm carBrand={carBrand} setCarBrand={setCarBrand} carPlate={carPlate} setCarPlate={setCarPlate} addCar={addCar} isAddingCar={isAddingCar} addCarFailed={addCarFailed} addCarError={addCarError} />
+      </div>
+
       <AccountActions token={token} userEmail={user.user_email} />
-      <CarsList cars={cars} deleteCar={deleteCar} />
-      <AddCarForm carBrand={carBrand} setCarBrand={setCarBrand} carPlate={carPlate} setCarPlate={setCarPlate} addCar={addCar} isAddingCar={isAddingCar} addCarFailed={addCarFailed} addCarError={addCarError} />
     </div>
   );
 }

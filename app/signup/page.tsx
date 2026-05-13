@@ -35,7 +35,7 @@ export default function Signup() {
     },
   });
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
     const err = validateForm(firstName, email, password, confirmPassword);
     if (err) {
@@ -62,7 +62,7 @@ export default function Signup() {
           {validationError && <p className="text-red-500 text-sm">{validationError}</p>}
           {/* Conditional rendering — server error */}
           {isError && <p className="text-red-500 text-sm">{(error as Error).message}</p>}
-          <button type="submit" disabled={isPending} className="bg-green-600 hover:bg-green-700 disabled:opacity-50 text-white font-semibold rounded-xs py-2 mt-2 transition-colors">
+          <button type="submit" disabled={isPending} className="bg-green-600 hover:bg-green-700 disabled:opacity-50 text-white font-semibold rounded-xs py-2 mt-2 transition-colors cursor-pointer">
             {isPending ? "Opretter…" : "Opret min konto"}
           </button>
         </form>
