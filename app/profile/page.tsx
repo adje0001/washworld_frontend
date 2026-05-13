@@ -1,12 +1,13 @@
 "use client";
 
-import { useMutation } from "@tanstack/react-query";
 import { useCars } from "../hooks/useCars";
 import { useProfile } from "../hooks/useProfile";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAuthContext } from "../../components/AuthProvider";
-import { baseUrl } from "../../lib/config";
+import { AccountActions } from "../../components/profile/AccountActions";
+import { CarsList } from "../../components/profile/CarsList";
+import { AddCarForm } from "../../components/profile/AddCarForm";
 
 export default function Profile() {
   const [token, setToken] = useState<string | null>(null);
@@ -43,39 +44,7 @@ export default function Profile() {
     setSessionExpired(true);
   });
 
-  const {
-    mutate: sendReset,
-    isPending: isResetting,
-    isSuccess: resetSent,
-    isError: resetFailed,
-  } = useMutation({
-    mutationFn: async (email: string) => {
-      const body = new URLSearchParams({ email });
-      const res = await fetch(`${baseUrl}/api/forgot-password`, {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" }, //Det der sendes afsted fra clienten skal matche det serveren forventer, i dette tilfælde forventer serveren request.form.data
-        body,
-      });
-      if (!res.ok) throw new Error(await res.text());
-    },
-  });
-
   const { cars, carBrand, setCarBrand, carPlate, setCarPlate, addCar, isAddingCar, addCarFailed, addCarError, deleteCar } = useCars(token);
-  const [carSubmitAttempted, setCarSubmitAttempted] = useState(false);
-
-  const { mutate: deleteAccount, isPending: isDeleting } = useMutation({
-    mutationFn: async () => {
-      const res = await fetch(`${baseUrl}/api/users`, {
-        method: "DELETE",
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      if (!res.ok) throw new Error(await res.text());
-    },
-    onSuccess: () => {
-      logout();
-      router.push("/");
-    },
-  });
 
   // Conditional rendering — session expired
   //If sessionExpired = true
@@ -104,44 +73,18 @@ export default function Profile() {
       <p>
         <strong>Din profil blev verificeret d.</strong> {user.user_verified_at ? new Date(user.user_verified_at * 1000).toLocaleString("da-DK") : "Nej"}
       </p>
-      <button onClick={() => router.push("/logout")}>Log ud</button>
-      <button onClick={() => sendReset(user.user_email)} disabled={isResetting || resetSent}>
-        {isResetting ? "Sender…" : resetSent ? "Email sendt! Tjek din indbakke" : "Nulstil adgangskode"}
-      </button>
-      {/* Conditional rendering — reset error */}
-      {resetFailed && <p>Kunne ikke sende reset-email. Prøv igen.</p>}
-      <button onClick={() => deleteAccount()} disabled={isDeleting}>
-        {isDeleting ? "Sletter…" : "Slet konto"}
-      </button>
-
-      <h2>Mine biler</h2>
-      {/* Conditional rendering — empty state */}
-      {cars?.length === 0 && <p>Du har ingen biler tilføjet endnu.</p>}
-      <ul>
-        {cars?.map((car: { car_pk: string; car_brand: string; car_license_plate: string }) => (
-          <li key={car.car_pk}>
-            {car.car_brand} {car.car_license_plate}
-            <button onClick={() => deleteCar(car.car_pk)}>Slet bil</button>
-          </li>
-        ))}
-      </ul>
-
-      <h3>Tilføj bil</h3>
-      <input type="text" placeholder="Mærke (fx Toyota)" value={carBrand} onChange={(e) => setCarBrand(e.target.value)} />
-      <input type="text" placeholder="Nummerplade (fx AB 12 345)" value={carPlate} onChange={(e) => setCarPlate(e.target.value)} />
-      <button
-        onClick={() => {
-          setCarSubmitAttempted(true);
-          if (carBrand && carPlate) addCar();
-        }}
-        disabled={isAddingCar}
-      >
-        {isAddingCar ? "Tilføjer…" : "Tilføj bil"}
-      </button>
-      {/* Conditional rendering — empty field validation on submit */}
-      {carSubmitAttempted && (!carBrand || !carPlate) && <p>Begge felter skal udfyldes</p>}
-      {/* Conditional rendering — add car error from backend */}
-      {addCarFailed && <p>{(addCarError as Error).message}</p>}
+      <AccountActions token={token} userEmail={user.user_email} />
+      <CarsList cars={cars} deleteCar={deleteCar} />
+      <AddCarForm
+        carBrand={carBrand}
+        setCarBrand={setCarBrand}
+        carPlate={carPlate}
+        setCarPlate={setCarPlate}
+        addCar={addCar}
+        isAddingCar={isAddingCar}
+        addCarFailed={addCarFailed}
+        addCarError={addCarError}
+      />
     </div>
   );
 }
