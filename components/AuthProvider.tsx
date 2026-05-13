@@ -46,7 +46,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   return <AuthContext.Provider value={{ isLoggedIn, login, logout }}>{children}</AuthContext.Provider>;
 }
-
 //AuthProvider — wraps the app, holds the state and functions
 //AuthContext — the channel React uses to pass them down
 //useAuthContext() — what components call to receive them
