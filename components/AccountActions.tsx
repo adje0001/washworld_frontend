@@ -56,15 +56,15 @@ export function AccountActions({ token, userEmail }: Props) {
   //None of the 3 buttons know anything about cars or the users profile data, then only need token and userEmail
   return (
     <div className="flex flex-col gap-3">
-      <button onClick={() => router.push("/logout")} className="w-full bg-red-400 hover:bg-red-500 text-white font-semibold rounded-xs py-3 text-sm transition-colors">
+      <button onClick={() => router.push("/logout")} className="w-full bg-red-400 hover:bg-red-500 text-white font-semibold rounded-xs py-3 text-sm transition-colors cursor-pointer">
         Log ud
       </button>
-      <button onClick={() => sendReset(userEmail)} disabled={isResetting || resetSent} className="w-full text-gray-500 hover:text-gray-700 text-sm py-1 transition-colors disabled:opacity-50">
+      <button onClick={() => sendReset(userEmail)} disabled={isResetting || resetSent} className="w-full text-gray-500 hover:text-gray-700 text-sm py-1 transition-colors disabled:opacity-50 cursor-pointer">
         {isResetting ? "Sender…" : resetSent ? "Email sendt! Tjek din indbakke" : "Nulstil adgangskode"}
       </button>
       {/* Conditional rendering — reset error */}
       {resetFailed && <p className="text-red-500 text-xs text-center">Kunne ikke sende reset-email. Prøv igen.</p>}
-      <button onClick={() => deleteAccount()} disabled={isDeleting} className="w-full text-red-400 hover:text-red-600 text-sm py-1 transition-colors disabled:opacity-50">
+      <button onClick={() => deleteAccount()} disabled={isDeleting} className="w-full text-red-400 hover:text-red-600 text-sm py-1 transition-colors disabled:opacity-50 cursor-pointer">
         {isDeleting ? "Sletter…" : "Slet konto"}
       </button>
     </div>

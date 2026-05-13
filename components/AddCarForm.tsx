@@ -29,7 +29,7 @@ export function AddCarForm({ carBrand, setCarBrand, carPlate, setCarPlate, addCa
           if (carBrand && carPlate) addCar();
         }}
         disabled={isAddingCar}
-        className="bg-green-600 hover:bg-green-700 disabled:opacity-50 text-white font-semibold rounded-xs py-2.5 text-sm transition-colors w-full"
+        className="bg-green-600 hover:bg-green-700 disabled:opacity-50 text-white font-semibold rounded-xs py-2.5 text-sm transition-colors w-full cursor-pointer"
       >
         {isAddingCar ? "Tilføjer…" : "Tilføj køretøj"}
       </button>
