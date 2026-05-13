@@ -25,7 +25,7 @@ export default function Profile() {
   //Re-runs once the sessionExpired changes
   useEffect(() => {
     if (!sessionExpired) return;
-    const timer = setTimeout(() => router.push("/"), 2000);
+    const timer = setTimeout(() => router.push("/login"), 2000);
     return () => clearTimeout(timer);
   }, [sessionExpired]);
 
@@ -55,7 +55,7 @@ export default function Profile() {
   if (sessionExpired)
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <p className="text-gray-500 text-sm">Sessionen er udløbet. Du bliver sendt til forsiden...</p>
+        <p className="text-gray-500 text-sm">Sessionen er udløbet. Log venligst ind igen</p>
       </div>
     );
 

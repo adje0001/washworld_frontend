@@ -10,7 +10,7 @@ export default function Home() {
   return (
     <div>
       <h1>Forside</h1>
-      {/* Conditional rendering — routes to profile if logged in, otherwise login */}
+      {/* Conditional rendering routes to profile if logged in, otherwise login */}
       <button onClick={() => router.push(isLoggedIn ? "/profile" : "/login")}>Min profil</button>
     </div>
   );
