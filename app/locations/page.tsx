@@ -16,7 +16,12 @@ export default function Locations() {
   const [selectedId, setSelectedId] = useState<string | null>(null);
 
   // Conditional rendering — loading state
-  if (isPending) return <p>Henter vaskehaller...</p>;
+  if (isPending)
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <p className="text-gray-600 text-md">Henter vaskehaller...</p>
+      </div>
+    );
 
   // Conditional rendering — error state
   if (isError) return <p>Kunne ikke hente vaskehaller. Prøv igen.</p>;
