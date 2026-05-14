@@ -21,8 +21,8 @@ export function AddCarForm({ carBrand, setCarBrand, carPlate, setCarPlate, addCa
 
   return (
     <div className="mt-4 pt-4 border-t border-gray-100 flex flex-col gap-3">
-      <input type="text" placeholder="Mærke (fx Toyota)" value={carBrand} onChange={(e) => setCarBrand(e.target.value)} className="border border-gray-300 rounded-xs px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 w-full" />
-      <input type="text" placeholder="Nummerplade (fx AB 12 345)" value={carPlate} onChange={(e) => setCarPlate(e.target.value)} className="border border-gray-300 rounded-xs px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 w-full" />
+      <input type="text" placeholder="Mærke (fx Toyota)" value={carBrand} onChange={(e) => setCarBrand(e.target.value)} className="border border-gray-300 rounded-xs px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-green-500 w-full" />
+      <input type="text" placeholder="Nummerplade (fx AB 12 345)" value={carPlate} onChange={(e) => setCarPlate(e.target.value)} className="border border-gray-300 rounded-xs px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-green-500 w-full" />
       <button
         onClick={() => {
           if (carBrand && carPlate) {
