@@ -14,6 +14,8 @@ export default function Locations() {
   const [search, setSearch] = useState("");
   // State for selected marker — controls which card is highlighted
   const [selectedId, setSelectedId] = useState<string | null>(null);
+  // State management — toggles between showing 4 cards and all cards
+  const [isExpanded, setIsExpanded] = useState(false);
 
   // Conditional rendering — loading state
   if (isPending)
@@ -53,7 +55,16 @@ export default function Locations() {
               <circle cx="11" cy="11" r="8" />
               <path d="m21 21-4.35-4.35" />
             </svg>
-            <input type="text" placeholder="Søg efter by, navn eller postnummer..." value={search} onChange={(e) => setSearch(e.target.value)} className="w-full border border-gray-300 rounded-xs pl-9 pr-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 bg-white" />
+            <input
+              type="text"
+              placeholder="Søg efter by, navn eller postnummer..."
+              value={search}
+              onChange={(e) => {
+                setSearch(e.target.value);
+                setIsExpanded(false);
+              }}
+              className="w-full border border-gray-300 rounded-xs pl-9 pr-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 bg-white"
+            />
           </div>
         </div>
       </div>
@@ -65,10 +76,18 @@ export default function Locations() {
           {filtered?.length === 0 && <p className="text-gray-500 text-sm py-8 text-center">Ingen vaskehaller matcher din søgning.</p>}
           {/* Component-based architecture */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-            {filtered?.map((loc) => (
+            {filtered?.slice(0, isExpanded ? undefined : 4).map((loc) => (
               <LocationCard key={loc.location_pk} location={loc} isSelected={selectedId === loc.location_pk} onSelect={setSelectedId} />
             ))}
           </div>
+          {/* Conditional rendering — toggle between showing 4 and all cards */}
+          {filtered && filtered.length > 4 && (
+            <div className="flex justify-center mt-6">
+              <button onClick={() => setIsExpanded((v) => !v)} className="px-6 py-2.5 border border-green-300 rounded-xs text-sm font-medium text-gray-700 hover:bg-green-100 transition-colors cursor-pointer">
+                {isExpanded ? "Vis mindre" : "Vis mere"}
+              </button>
+            </div>
+          )}
         </div>
       </div>
 
