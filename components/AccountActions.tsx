@@ -65,12 +65,12 @@ export function AccountActions({ token, userEmail, variant = "logout" }: Props) 
   if (variant === "actions")
     return (
       <div className="flex flex-col gap-1">
-        <button onClick={() => sendReset(userEmail)} disabled={isResetting || resetSent} className="text-gray-500 hover:text-gray-700 text-sm py-0.5 transition-colors disabled:opacity-50 cursor-pointer text-left">
+        <button onClick={() => sendReset(userEmail)} disabled={isResetting || resetSent} className="font-semibold text-gray-500 hover:text-gray-700 text-sm py-0.5 transition-colors disabled:opacity-50 cursor-pointer text-left">
           {isResetting ? "Sender…" : resetSent ? "Email sendt!" : "Nulstil adgangskode"}
         </button>
         {/* Conditional rendering — reset error */}
         {resetFailed && <p className="text-red-500 text-xs">Kunne ikke sende reset-email. Prøv igen.</p>}
-        <button onClick={() => deleteAccount()} disabled={isDeleting} className="text-red-400 hover:text-red-600 text-sm py-0.5 transition-colors disabled:opacity-50 cursor-pointer text-left">
+        <button onClick={() => deleteAccount()} disabled={isDeleting} className="font-semibold text-red-400 hover:text-red-600 text-sm py-0.5 transition-colors disabled:opacity-50 cursor-pointer text-left">
           {isDeleting ? "Sletter…" : "Slet konto"}
         </button>
       </div>

@@ -1,10 +1,17 @@
-import { useQuery, useMutation } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+
+interface Car {
+  car_pk: string;
+  car_brand: string;
+  car_license_plate: string;
+}
 import { useState } from "react";
 import { baseUrl } from "../../lib/config";
 
 // useCars fetches the logged-in users cars and provides addCar and deleteCar mutations
 // Requires the JWT token to authorize both requests against the backend
 export function useCars(token: string | null, onUnauthorized?: () => void) {
+  const queryClient = useQueryClient();
   const [carBrand, setCarBrand] = useState("");
   const [carPlate, setCarPlate] = useState("");
 
@@ -73,7 +80,21 @@ export function useCars(token: string | null, onUnauthorized?: () => void) {
       }
       if (!res.ok) throw new Error(await res.text());
     },
-    onSuccess: () => refetchCars(),
+    // Optimistic UI — remove car instantly before server responds
+    onMutate: async (car_pk) => {
+      await queryClient.cancelQueries({ queryKey: ["cars", token] });
+      const previous = queryClient.getQueryData<Car[]>(["cars", token]);
+      queryClient.setQueryData<Car[]>(["cars", token], (old = []) => old.filter((car) => car.car_pk !== car_pk));
+      return { previous };
+    },
+    // Roll back to previous state if the request fails
+    onError: (_err, _car_pk, context) => {
+      queryClient.setQueryData(["cars", token], context?.previous);
+    },
+    // Always sync with server after mutation settles
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ["cars", token] });
+    },
   });
   //The result from the useQuery is stored as cars and returned from the hook here
   //The cars variable is reactive so when refetchcars() runs and gets new data, tankstack updates cars and the profile re-renders

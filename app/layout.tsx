@@ -27,7 +27,7 @@ export default function RootLayout({
         <AuthProvider>
           <Navbar />
           <QueryProvider>
-            <main className="pt-14">{children}</main>
+            <main className="pt-14 grow">{children}</main>
             <Footer />
           </QueryProvider>
         </AuthProvider>
