@@ -30,7 +30,7 @@ export function CarsList({ cars, deleteCar }: Props) {
                 <p className="text-gray-400 text-xs">{car.car_brand}</p>
               </div>
             </div>
-            <button onClick={() => deleteCar(car.car_pk)} className="text-red-400 hover:text-red-600 text-sm transition-colors cursor-pointer">
+            <button onClick={() => deleteCar(car.car_pk)} className="font-semibold text-red-400 hover:text-red-600 text-sm transition-colors cursor-pointer">
               Slet
             </button>
           </div>
