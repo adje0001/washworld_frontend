@@ -9,6 +9,7 @@ export function useCars(token: string | null, onUnauthorized?: () => void) {
   const [carPlate, setCarPlate] = useState("");
 
   // Fetch the specific users cars from the backend in an array object
+  //Refetch so we can update the list for every change
   const { data: cars, refetch: refetchCars } = useQuery({
     queryKey: ["cars", token],
     queryFn: async () => {
@@ -48,6 +49,7 @@ export function useCars(token: string | null, onUnauthorized?: () => void) {
       }
       if (!res.ok) throw new Error(await res.text());
     },
+    //Add car's onSuccess gets called by tanstack when the mutationFn finishes we call refetchCars()
     onSuccess: () => {
       setCarBrand("");
       setCarPlate("");
@@ -72,5 +74,6 @@ export function useCars(token: string | null, onUnauthorized?: () => void) {
     onSuccess: () => refetchCars(),
   });
   //The result from the useQuery is stored as cars and returned from the hook here
+  //The cars variable is reactive so when refetchcars() runs and gets new data, tankstack updates cars and the profile re-renders
   return { cars, carBrand, setCarBrand, carPlate, setCarPlate, addCar, isAddingCar, addCarFailed, addCarError, deleteCar };
 }
