@@ -83,7 +83,7 @@ export default function Locations() {
           {/* Conditional rendering — toggle between showing 4 and all cards */}
           {filtered && filtered.length > 4 && (
             <div className="flex justify-center mt-6">
-              <button onClick={() => setIsExpanded((v) => !v)} className="px-6 py-2.5 border border-gray-300 hover:border-green-500 rounded-xs text-sm font-medium text-gray-700 transition-colors cursor-pointer">
+              <button onClick={() => setIsExpanded((v) => !v)} className="px-6 py-2.5 border border-green-300 rounded-xs text-sm font-medium text-gray-700 hover:bg-green-100 transition-colors cursor-pointer">
                 {isExpanded ? "Vis mindre" : "Vis mere"}
               </button>
             </div>
