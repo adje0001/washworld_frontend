@@ -8,7 +8,7 @@ export function useCars(token: string | null, onUnauthorized?: () => void) {
   const [carBrand, setCarBrand] = useState("");
   const [carPlate, setCarPlate] = useState("");
 
-  // Fetch the specific users cars from the backend
+  // Fetch the specific users cars from the backend in an array object
   const { data: cars, refetch: refetchCars } = useQuery({
     queryKey: ["cars", token],
     queryFn: async () => {
@@ -70,6 +70,6 @@ export function useCars(token: string | null, onUnauthorized?: () => void) {
     },
     onSuccess: () => refetchCars(),
   });
-
+  //The result from the useQuery is stored as cars and returned from the hook here
   return { cars, carBrand, setCarBrand, carPlate, setCarPlate, addCar, isAddingCar, addCarFailed, addCarError, deleteCar };
 }
