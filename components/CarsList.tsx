@@ -9,7 +9,7 @@ interface Props {
   deleteCar: (car_pk: string) => void;
 }
 
-// Component-based architecture — cars list extracted from profile page
+// Component-based architecture cars list extracted from profile page
 export function CarsList({ cars, deleteCar }: Props) {
   return (
     <>

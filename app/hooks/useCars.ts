@@ -55,7 +55,8 @@ export function useCars(token: string | null, onUnauthorized?: () => void) {
     },
   });
 
-  // Delete car mutation — sends DELETE request with car_pk in the URL
+  // Delete car mutation — sends DELETE request with car_pk in the URL to match the backend route
+  // Flask reads <car_pk> out of the URL and uses it to find the right car to delete
   const { mutate: deleteCar } = useMutation({
     mutationFn: async (car_pk: string) => {
       const res = await fetch(`${baseUrl}/api/cars/${car_pk}`, {

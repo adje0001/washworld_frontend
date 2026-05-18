@@ -9,7 +9,7 @@ export default function Logout() {
   const router = useRouter();
   const [hasToken, setHasToken] = useState<boolean | null>(null);
 
-  // useEffect for side effects — runs on client only, so localStorage is safe to access
+  //useEffect for side effects — runs on client only, so localStorage is safe to access
   //If hasToken = false we redirect to login
   //hasToken is called inside useEffect which only runs on the client
   useEffect(() => {
