@@ -23,6 +23,8 @@ export function useCars(token: string | null, onUnauthorized?: () => void) {
       if (!res.ok) throw new Error(await res.text());
       return res.json();
     },
+    staleTime: 5 * 60 * 1000,
+    gcTime: 0,
     enabled: !!token,
     retry: false,
   });

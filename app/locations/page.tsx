@@ -9,12 +9,12 @@ import { useLocations } from "../hooks/useWash";
 const LocationsMap = dynamic(() => import("../../components/LocationsMap").then((m) => m.LocationsMap), { ssr: false });
 
 export default function Locations() {
-  const { data: locations, isPending, isError } = useLocations();
-  // State for search — satisfies search/filtering requirement
+  const { data: locations, isPending, isError } = useLocations(); //Fetches data from the hook
+  // State for search search/filtering requirement
   const [search, setSearch] = useState("");
-  // State for selected marker — controls which card is highlighted
+  // State for selected marker which controls which card is highlighted
   const [selectedId, setSelectedId] = useState<string | null>(null);
-  // State management — toggles between showing 4 cards and all cards
+  // State management to toggle between showing 4 cards and all cards
   const [isExpanded, setIsExpanded] = useState(false);
 
   // Conditional rendering — loading state
@@ -32,7 +32,7 @@ export default function Locations() {
         <p className="text-red-500 text-md">Kunne ikke hente vaskehaller. Prøv igen.</p>
       </div>
     );
-
+  //Filters locations based on search input
   const filtered = locations?.filter((loc) => `${loc.location_name} ${loc.location_city} ${loc.location_zip}`.toLowerCase().includes(search.toLowerCase()));
 
   return (
