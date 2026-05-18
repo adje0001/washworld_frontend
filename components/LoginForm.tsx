@@ -43,7 +43,7 @@ export function LoginForm() {
 
     //awaits the fetch from the AuthProvider where we handle the logic
     //We do a try if the login is a success
-    //And a catch if the login throws an error with the serverError message
+    //And a catch if the login throws an error with the serverError message coming from the authprovider
     //We then render the serverError in the JSX
     try {
       await login(email, password);

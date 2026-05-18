@@ -20,7 +20,7 @@ export function SignupForm() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [validationError, setValidationError] = useState<string | null>(null);
 
-  // useMutation for the sign-up POST requirement: TanStack Query with loading and error handling
+  // useMutation for the sign-up POST TanStack Query with loading and error handling
   const { mutate, isPending, isError, error, isSuccess } = useMutation({
     mutationFn: async () => {
       const body = new URLSearchParams({ user_first_name: firstName, email, password, confirm_password: confirmPassword });
@@ -29,8 +29,8 @@ export function SignupForm() {
         headers: { "Content-Type": "application/x-www-form-urlencoded" }, //Det der sendes afsted fra clienten skal matche det serveren forventer, i dette tilfælde forventer serveren request.form.data
         body,
       });
-      if (!res.ok) throw new Error(await res.text());
-      return res.text();
+      if (!res.ok) throw new Error(await res.text()); //Reads the error the backend sent back so tanstack captures it as the error object and displayed on line 63
+      return res.text(); //Reads the success response "Check your email" and triggers the isSuccess on line 49
     },
   });
 
@@ -45,7 +45,7 @@ export function SignupForm() {
     mutate();
   };
 
-  // Conditional rendering — success state
+  // Conditional rendering success state
   if (isSuccess) return <p className="min-h-screen flex items-center justify-center font-semibold md:text-2xl text-sm text-green-600">Tjek din email for at aktivere din konto.</p>;
 
   return (

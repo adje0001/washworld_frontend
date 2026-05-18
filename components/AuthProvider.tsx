@@ -2,7 +2,7 @@
 //On mount, a useEffect checks localStorage for a JWT/token
 //If one exists, the user is considered logged in
 //The 3 values = Loginstate, Login and logout is shared via AuthContext
-//Any component that calls useAuthContext gets access to it ex. the navbar
+//Any component that calls useAuthContext gets access to it fx. the navbar
 "use client";
 
 import { createContext, useContext, useEffect, useState } from "react";
