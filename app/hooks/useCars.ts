@@ -30,6 +30,8 @@ export function useCars(token: string | null, onUnauthorized?: () => void) {
       if (!res.ok) throw new Error(await res.text());
       return res.json();
     },
+    staleTime: 5 * 60 * 1000,
+    gcTime: 0,
     enabled: !!token,
     retry: false,
   });
@@ -64,7 +66,7 @@ export function useCars(token: string | null, onUnauthorized?: () => void) {
     },
   });
 
-  // Delete car mutation — sends DELETE request with car_pk in the URL to match the backend route
+  // Delete car mutation — sends DELETE request with car_pk in the URL to match the backend route after the onMutate
   // Flask reads <car_pk> out of the URL and uses it to find the right car to delete
   const { mutate: deleteCar } = useMutation({
     mutationFn: async (car_pk: string) => {
@@ -78,7 +80,8 @@ export function useCars(token: string | null, onUnauthorized?: () => void) {
       }
       if (!res.ok) throw new Error(await res.text());
     },
-    // Optimistic UI — remove car instantly before server responds
+    // Optimistic UI remove car instantly before server responds
+    //unMutate makes the ui update
     onMutate: async (car_pk) => {
       await queryClient.cancelQueries({ queryKey: ["cars", token] });
       const previous = queryClient.getQueryData<Car[]>(["cars", token]);
@@ -89,7 +92,9 @@ export function useCars(token: string | null, onUnauthorized?: () => void) {
     onError: (_err, _car_pk, context) => {
       queryClient.setQueryData(["cars", token], context?.previous);
     },
-    // Always sync with server after mutation settles
+    // Always sync with server after mutation settles, runs regardless of succes or failure
+    //Runs when the DELETE request finishes
+    //Calls invalidateQueries, which tankstack sees and refetches the GET
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: ["cars", token] });
     },
