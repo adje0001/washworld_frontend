@@ -6,8 +6,7 @@
 "use client";
 
 import { createContext, useContext, useEffect, useState } from "react";
-
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? "";
+import { baseUrl } from "../lib/config";
 
 interface AuthContextType {
   isLoggedIn: boolean;

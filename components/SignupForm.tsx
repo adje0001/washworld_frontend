@@ -20,7 +20,7 @@ export function SignupForm() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [validationError, setValidationError] = useState<string | null>(null);
 
-  // useMutation for the sign-up POST — requirement: TanStack Query with loading and error handling
+  // useMutation for the sign-up POST requirement: TanStack Query with loading and error handling
   const { mutate, isPending, isError, error, isSuccess } = useMutation({
     mutationFn: async () => {
       const body = new URLSearchParams({ user_first_name: firstName, email, password, confirm_password: confirmPassword });

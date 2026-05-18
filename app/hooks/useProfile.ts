@@ -8,7 +8,6 @@ export function useProfile(token: string | null, onUnauthorized: () => void) {
   return useQuery({
     queryKey: ["profile"],
     queryFn: async () => {
-      await new Promise((resolve) => setTimeout(resolve, 2000));
       const res = await fetch(`${baseUrl}/api/profile`, {
         headers: { Authorization: `Bearer ${token}` },
       });
