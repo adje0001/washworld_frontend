@@ -29,7 +29,7 @@ export function Navbar() {
   const mitWashWorldBtn =
     /* Conditional rendering — show profile when logged in, login when not */
     isLoggedIn ? (
-      <Link href="/profile" className="border border-white/70 text-white px-4 md:py-1.5 py-2 rounded-xs text-center text-sm font-semibold hover:text-green-400 transition-colors flex items-center gap-1.5" onClick={() => setMenuOpen(false)}>
+      <Link href="/profile" className="border border-white/70 text-white px-4 md:py-1.5 py-2 rounded-xs text-center text-sm font-semibold hover:text-green-400 transition-colors flex items-center justify-center gap-1.5" onClick={() => setMenuOpen(false)}>
         <svg className="w-3 h-3 shrink-0 text-green-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <rect x="3" y="11" width="18" height="11" rx="2" />
           <path d="M7 11V7a5 5 0 0 1 10 0V3" />
@@ -37,7 +37,7 @@ export function Navbar() {
         Mit Wash World
       </Link>
     ) : (
-      <Link href="/login" className="border border-white/70 text-white px-4 md:py-1.5 py-2 rounded-xs text-center text-sm font-semibold hover:text-green-400 transition-colors flex items-center gap-1.5" onClick={() => setMenuOpen(false)}>
+      <Link href="/login" className="border border-white/70 text-white px-4 md:py-1.5 py-2 rounded-xs text-center text-sm font-semibold hover:text-green-400 transition-colors flex items-center justify-center gap-1.5" onClick={() => setMenuOpen(false)}>
         <svg className="w-3 h-3 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <rect x="3" y="11" width="18" height="11" rx="2" />
           <path d="M7 11V7a5 5 0 0 1 10 0v4" />
