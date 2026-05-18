@@ -30,7 +30,7 @@ export function Navbar() {
     /* Conditional rendering — show profile when logged in, login when not */
     isLoggedIn ? (
       <Link href="/profile" className="border border-white/50 text-white px-4 md:py-1.5 py-2 rounded-xs text-center text-sm font-semibold hover:text-green-400 transition-colors" onClick={() => setMenuOpen(false)}>
-        Mit Wash World
+        Profil
       </Link>
     ) : (
       <Link href="/login" className="border border-white/50 text-white px-4 md:py-1.5 py-2 rounded-xs text-center text-sm font-semibold hover:text-green-400 transition-colors" onClick={() => setMenuOpen(false)}>
