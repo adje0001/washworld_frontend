@@ -34,7 +34,21 @@ export default function Logout() {
   if (hasToken === null) return null;
 
   // Conditional rendering not logged in
-  if (!hasToken) return <p>Du er ikke logget ind. Du bliver sendt til loginsiden...</p>;
+  if (!hasToken)
+    return (
+      <div className="min-h-screen flex items-center justify-center px-4 text-center">
+        <p className="text-gray-600 text-md">
+          Du er ikke logget ind. <br></br> Du bliver sendt til loginsiden...
+        </p>
+      </div>
+    );
 
-  return <p>Du er nu logget ud og vender retur til forsiden</p>;
+  return (
+    <div className="min-h-screen flex items-center justify-center px-4 text-center">
+      <div>
+        <p className="font-bold text-green-600 text-lg mb-1">Du er logget ud</p>
+        <p className="text-gray-600 text-md">Du vender retur til forsiden...</p>
+      </div>
+    </div>
+  );
 }

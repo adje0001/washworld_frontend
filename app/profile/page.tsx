@@ -55,7 +55,7 @@ export default function Profile() {
   if (sessionExpired)
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <p className="text-gray-500 text-sm">Sessionen er udløbet. Log venligst ind igen</p>
+        <p className="text-gray-500 text-lg">Sessionen er udløbet. Log venligst ind igen</p>
       </div>
     );
 
@@ -64,7 +64,7 @@ export default function Profile() {
   if (!token)
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <p className="text-gray-500 text-sm">Du er ikke logget ind</p>
+        <p className="text-gray-500 text-lg">Du er ikke logget ind</p>
       </div>
     );
 
@@ -72,7 +72,7 @@ export default function Profile() {
   if (isLoading)
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <p className="text-gray-500 text-sm">Henter profil…</p>
+        <p className="text-gray-500 text-lg">Henter profil…</p>
       </div>
     );
 
@@ -81,7 +81,7 @@ export default function Profile() {
   if (isError)
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <p className="text-red-500 text-sm">Fejl: {(error as Error).message}</p>
+        <p className="text-red-500 text-lg">Fejl: {(error as Error).message}</p>
       </div>
     );
 
