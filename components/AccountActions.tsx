@@ -13,7 +13,7 @@ interface Props {
   variant?: "logout" | "actions";
 }
 
-// Component-based, account actions extracted from profile page
+//Component-based, account actions extracted from profile page
 //Recieves 2 props from the profilepage. Token(JWT) and userEmail.
 //In here we call 2 hooks we need. UseRouter for navigation and useAuthContext for the logout
 export function AccountActions({ token, userEmail, variant = "logout" }: Props) {

@@ -36,7 +36,7 @@ export default function Profile() {
     isLoading,
     isError,
     error,
-    //useProfile is called, the arrow function is passed as onUnauthorized
+    //useProfile is called, the arrow function is passed onUnauthorized as second argument
   } = useProfile(token, () => {
     logout();
     //Now true, state changes and the component re-renders
