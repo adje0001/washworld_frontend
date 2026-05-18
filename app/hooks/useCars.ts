@@ -15,7 +15,7 @@ export function useCars(token: string | null, onUnauthorized?: () => void) {
   const [carBrand, setCarBrand] = useState("");
   const [carPlate, setCarPlate] = useState("");
 
-  // Fetch the specific users cars from the backend in an array object
+  //Fetch the specific users cars from the backend in an array object
   //Refetch so we can update the list for every change
   const { data: cars, refetch: refetchCars } = useQuery({
     queryKey: ["cars", token],
@@ -80,7 +80,7 @@ export function useCars(token: string | null, onUnauthorized?: () => void) {
       }
       if (!res.ok) throw new Error(await res.text());
     },
-    // Optimistic UI remove car instantly before server responds
+    //Optimistic UI remove car instantly before server responds
     //unMutate makes the ui update
     onMutate: async (car_pk) => {
       await queryClient.cancelQueries({ queryKey: ["cars", token] });
@@ -92,7 +92,8 @@ export function useCars(token: string | null, onUnauthorized?: () => void) {
     onError: (_err, _car_pk, context) => {
       queryClient.setQueryData(["cars", token], context?.previous);
     },
-    // Always sync with server after mutation settles, runs regardless of succes or failure
+
+    //Always sync with server after mutation settles, runs regardless of succes or failure
     //Runs when the DELETE request finishes
     //Calls invalidateQueries, which tankstack sees and refetches the GET
     onSettled: () => {

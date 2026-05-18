@@ -21,6 +21,7 @@ export function SignupForm() {
   const [validationError, setValidationError] = useState<string | null>(null);
 
   // useMutation for the sign-up POST TanStack Query with loading and error handling
+  //Fires when mutate() is called, post request with form data
   const { mutate, isPending, isError, error, isSuccess } = useMutation({
     mutationFn: async () => {
       const body = new URLSearchParams({ user_first_name: firstName, email, password, confirm_password: confirmPassword });
@@ -41,11 +42,12 @@ export function SignupForm() {
       setValidationError(err);
       return;
     }
+    //if validation passes after sign up, mutate() is called which fires the post request
     setValidationError(null);
     mutate();
   };
 
-  // Conditional rendering success state
+  // Conditional rendering success state, if the backend returns a 200
   if (isSuccess) return <p className="min-h-screen flex items-center justify-center font-semibold md:text-2xl text-sm text-green-600">Tjek din email for at aktivere din konto.</p>;
 
   return (
@@ -57,7 +59,7 @@ export function SignupForm() {
           <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} className="border border-gray-300 rounded-xs px-2 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-green-500" />
           <input type="password" placeholder="Adgangskode" value={password} onChange={(e) => setPassword(e.target.value)} className="border border-gray-300 rounded-xs px-2 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-green-500" />
           <input type="password" placeholder="Bekræft adgangskode" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} className="border border-gray-300 rounded-xs px-2 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-green-500" />
-          {/* Conditional rendering — validation error */}
+          {/* Conditional rendering — if the backends returns validation error */}
           {validationError && <p className="text-red-500 text-sm">{validationError}</p>}
           {/* Conditional rendering — server error */}
           {isError && <p className="text-red-500 text-sm">{(error as Error).message}</p>}

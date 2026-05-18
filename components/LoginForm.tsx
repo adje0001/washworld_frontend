@@ -43,13 +43,19 @@ export function LoginForm() {
 
     //awaits the fetch from the AuthProvider where we handle the logic
     //We do a try if the login is a success
-    //And a catch if the login throws an error with the serverError message coming from the authprovider
-    //We then render the serverError in the JSX
+    //And a catch if the login throws an error, we check the backend message and show a specific error
+    //If the backend says "verify", the user hasnt verified their email yet
+    //Otherwise we show a generic wrong credentials message
     try {
       await login(email, password);
       router.push("/profile");
     } catch (e) {
-      setServerError("Forkert email eller adgangskode");
+      const msg = (e as Error).message;
+      if (msg.includes("verify")) {
+        setServerError("Du skal verificere din email før du kan logge ind.");
+      } else {
+        setServerError("Forkert email eller adgangskode");
+      }
     } finally {
       setIsPending(false);
     }
