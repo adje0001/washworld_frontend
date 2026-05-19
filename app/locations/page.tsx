@@ -33,7 +33,7 @@ export default function Locations() {
       </div>
     );
   //Filters locations based on search input
-  const filtered = locations?.filter((loc) => `${loc.location_name} ${loc.location_city} ${loc.location_zip}`.toLowerCase().includes(search.toLowerCase()));
+  const filtered = locations?.filter((loc) => `${loc.location_name} ${loc.location_address} ${loc.location_city} ${loc.location_zip}`.toLowerCase().includes(search.toLowerCase()));
 
   return (
     <div>
