@@ -38,6 +38,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setIsLoggedIn(true);
   };
   //Removes JWT from localStorage and sets isLoggedIn to false
+  //SetisloggedIn(false) then renders the black lock in the NavBar
   const logout = () => {
     localStorage.removeItem("jwt");
     setIsLoggedIn(false);

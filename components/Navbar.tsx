@@ -28,6 +28,7 @@ export function Navbar() {
 
   const mitWashWorldBtn =
     /* Conditional rendering — show profile when logged in, login when not */
+    /* ? Ternary operator */
     isLoggedIn ? (
       <Link href="/profile" className="border border-white/70 text-white px-4 md:py-1.5 py-2 rounded-xs text-center text-sm font-semibold hover:text-green-400 transition-colors flex items-center justify-center gap-1.5" onClick={() => setMenuOpen(false)}>
         <svg className="w-3 h-3 shrink-0 text-green-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
