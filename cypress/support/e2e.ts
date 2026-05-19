@@ -15,3 +15,8 @@
 
 // Import commands.js using ES2015 syntax:
 import './commands'
+
+// Suppress browser extension noise — not an app error
+Cypress.on("uncaught:exception", (err) => {
+  if (err.message.includes("message channel closed")) return false;
+});
