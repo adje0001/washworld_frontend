@@ -7,6 +7,7 @@ import { baseUrl } from "../../lib/config";
 export function useProfile(token: string | null, onUnauthorized: () => void) {
   return useQuery({
     queryKey: ["profile"],
+    // REST API integration GET /api/profile with correct Authorization header
     queryFn: async () => {
       const res = await fetch(`${baseUrl}/api/profile`, {
         headers: { Authorization: `Bearer ${token}` },

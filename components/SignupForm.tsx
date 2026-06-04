@@ -23,6 +23,7 @@ export function SignupForm() {
   // useMutation for the sign-up POST TanStack Query with loading and error handling
   //Fires when mutate() is called, post request with form data
   const { mutate, isPending, isError, error, isSuccess } = useMutation({
+    // REST API integration — POST /api/sign-up with form-encoded body
     mutationFn: async () => {
       const body = new URLSearchParams({ user_first_name: firstName, email, password, confirm_password: confirmPassword });
       const res = await fetch(`${baseUrl}/api/sign-up`, {

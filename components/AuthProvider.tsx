@@ -28,6 +28,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   //POSTs email and password to the backend route
   //If the backend returns a token, it saves in localStorage and sets isLoggedIn to true
+  // REST API integration — POST /api/login with email and password as JSON
   const login = async (email: string, password: string) => {
     const res = await fetch(`${baseUrl}/api/login`, {
       method: "POST",

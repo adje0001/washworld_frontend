@@ -25,7 +25,7 @@ export function AddCarForm({ carBrand, setCarBrand, carPlate, setCarPlate, addCa
       <button
         onClick={() => {
           if (carBrand && carPlate) {
-            addCar();
+            addCar(); //Calls the mutate in the hook
           } else {
             setCarSubmitAttempted(true);
           }

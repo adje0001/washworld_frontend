@@ -8,8 +8,11 @@ interface Car {
 import { useState } from "react";
 import { baseUrl } from "../../lib/config";
 
+// Custom hook — requirement: at least one custom hook
 // useCars fetches the logged-in users cars and provides addCar and deleteCar mutations
 // Requires the JWT token to authorize both requests against the backend
+// carBrand and carPlate are declared in this useCars function, so everything in here can read their value
+// Both carBrand and carPlate is read on line 58 inside the mutationFn
 export function useCars(token: string | null, onUnauthorized?: () => void) {
   const queryClient = useQueryClient();
   const [carBrand, setCarBrand] = useState("");
@@ -17,6 +20,7 @@ export function useCars(token: string | null, onUnauthorized?: () => void) {
 
   //Fetch the specific users cars from the backend in an array object
   //Refetch so we can update the list for every change
+  //REST API integration  GET /api/cars with correct Authorization header
   const { data: cars, refetch: refetchCars } = useQuery({
     queryKey: ["cars", token],
     queryFn: async () => {
@@ -36,6 +40,7 @@ export function useCars(token: string | null, onUnauthorized?: () => void) {
     retry: false,
   });
 
+  // REST API integration — POST /api/cars with car brand and license plate as JSON
   // Add car mutation, POSTs brand and license plate to the backend
   const {
     mutate: addCar,
@@ -50,6 +55,7 @@ export function useCars(token: string | null, onUnauthorized?: () => void) {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
+        //No need to send carBrand and carPlate as arguments, they are already scoped inside the hook
         body: JSON.stringify({ car_brand: carBrand, car_license_plate: carPlate }),
       });
       if (res.status === 401) {
@@ -66,6 +72,7 @@ export function useCars(token: string | null, onUnauthorized?: () => void) {
     },
   });
 
+  // REST API integration — DELETE /api/cars/:car_pk with correct Authorization header
   // Delete car mutation — sends DELETE request with car_pk in the URL to match the backend route after the onMutate
   // Flask reads <car_pk> out of the URL and uses it to find the right car to delete
   const { mutate: deleteCar } = useMutation({
@@ -81,7 +88,7 @@ export function useCars(token: string | null, onUnauthorized?: () => void) {
       if (!res.ok) throw new Error(await res.text());
     },
     //Optimistic UI remove car instantly before server responds
-    //unMutate makes the ui update
+    //onMutate makes the ui update
     onMutate: async (car_pk) => {
       await queryClient.cancelQueries({ queryKey: ["cars", token] });
       const previous = queryClient.getQueryData<Car[]>(["cars", token]);

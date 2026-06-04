@@ -20,6 +20,7 @@ export function AccountActions({ token, userEmail, variant = "logout" }: Props) 
   const router = useRouter();
   const { logout } = useAuthContext();
 
+  // REST API integration — POST /api/forgot-password with email as form-encoded body
   //When called it POSTs the users email to the route, and shows "Sender..." and "Email sendt"
   const {
     mutate: sendReset,
@@ -37,6 +38,7 @@ export function AccountActions({ token, userEmail, variant = "logout" }: Props) 
       if (!res.ok) throw new Error(await res.text());
     },
   });
+  // REST API integration — DELETE /api/users with correct Authorization header
   //Sends a DELETE request to the route with the JWT in the auth header
   //On success it calls logout() to clear the token from localStorage and redirects
   const { mutate: deleteAccount, isPending: isDeleting } = useMutation({

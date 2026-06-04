@@ -25,6 +25,7 @@ export function LoginForm() {
   const { login } = useAuthContext();
 
   //err is the string returned from validateForm, either "Ugyldig email" or "Adgangskode skal være 8-50 tegn"
+  //setValidationError stores the string in validationError(err)
   //If err is not null it sets the errormessage in state to return stops the function
   //If err is null validation has passed, and the login request proceeds
   const handleSubmitLogin = async (e: React.SyntheticEvent<HTMLFormElement>) => {
@@ -32,7 +33,7 @@ export function LoginForm() {
     const err = validateForm(email, password);
     if (err) {
       setValidationError(err);
-      return;
+      return; //Stops here, no request sent if not null
     }
     setValidationError(null);
     setServerError(null);

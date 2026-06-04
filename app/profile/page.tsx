@@ -37,6 +37,7 @@ export default function Profile() {
     isError,
     error,
     //useProfile is called, the arrow function is passed onUnauthorized as second argument
+    //React goes to the useProfile file, runs the function and returns the data to this page
   } = useProfile(token, () => {
     logout();
     //Now true, state changes and the component re-renders
@@ -77,7 +78,7 @@ export default function Profile() {
     );
 
   // Conditional rendering — error state
-  //The fetch failed
+  //The fetch failed. Returns whatever errormessage came from the backend passed from useProfile
   if (isError)
     return (
       <div className="min-h-screen flex items-center justify-center">
