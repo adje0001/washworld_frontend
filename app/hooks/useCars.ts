@@ -72,8 +72,8 @@ export function useCars(token: string | null, onUnauthorized?: () => void) {
     },
   });
 
-  // REST API integration — DELETE /api/cars/:car_pk with correct Authorization header
-  // Delete car mutation — sends DELETE request with car_pk in the URL to match the backend route after the onMutate
+  // REST API integration DELETE /api/cars/:car_pk with correct Authorization header
+  // Delete car mutation sends DELETE request with car_pk in the URL to match the backend route after the onMutate
   // Flask reads <car_pk> out of the URL and uses it to find the right car to delete
   const { mutate: deleteCar } = useMutation({
     mutationFn: async (car_pk: string) => {
@@ -90,10 +90,10 @@ export function useCars(token: string | null, onUnauthorized?: () => void) {
     //Optimistic UI remove car instantly before server responds
     //onMutate makes the ui update
     onMutate: async (car_pk) => {
-      await queryClient.cancelQueries({ queryKey: ["cars", token] });
-      const previous = queryClient.getQueryData<Car[]>(["cars", token]);
-      queryClient.setQueryData<Car[]>(["cars", token], (old = []) => old.filter((car) => car.car_pk !== car_pk));
-      return { previous };
+      await queryClient.cancelQueries({ queryKey: ["cars", token] }); //cancels any ongoing requests
+      const previous = queryClient.getQueryData<Car[]>(["cars", token]); //copies of the current cars array from the cache in case of roll back
+      queryClient.setQueryData<Car[]>(["cars", token], (old = []) => old.filter((car) => car.car_pk !== car_pk)); //remove the car from the cache instantly
+      return { previous }; //passes the snapshot to onError so it can restore if request failed
     },
     // Roll back to previous state if the request fails
     onError: (_err, _car_pk, context) => {

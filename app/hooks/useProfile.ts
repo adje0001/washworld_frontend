@@ -22,6 +22,6 @@ export function useProfile(token: string | null, onUnauthorized: () => void) {
     staleTime: 5 * 60 * 1000, //Data is fresh for 5 minutes, profiledata rarely changes
     gcTime: 0,
     retry: false,
-    enabled: !!token,
+    enabled: !!token, //This tells tanstack to only fire the fetch when token has a value, and is not null
   });
 }

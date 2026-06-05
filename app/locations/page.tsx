@@ -9,7 +9,7 @@ import { useLocations } from "../hooks/useWash";
 const LocationsMap = dynamic(() => import("../../components/LocationsMap").then((m) => m.LocationsMap), { ssr: false });
 
 export default function Locations() {
-  const { data: locations, isPending, isError } = useLocations(); //Fetches data from the hook
+  const { data: locations, isPending, isError } = useLocations(); //Fetches data from the hook, destructeres isPending and isError for conditional rendering
   // State for search search/filtering requirement
   const [search, setSearch] = useState("");
   // State for selected marker which controls which card is highlighted
