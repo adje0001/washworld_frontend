@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Location } from "../../components/LocationCard";
 import { baseUrl } from "../../lib/config";
 
-// Custom hook — requirement: at least one custom hook
+// Custom hook
 // useLocations fetches all wash hall locations from the API and returns them
 // via TanStack Query, giving the locations page loading and error states for free.
 export function useLocations() {

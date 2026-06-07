@@ -35,6 +35,15 @@ export default function Locations() {
   //Filters locations based on search input
   const filtered = locations?.filter((loc) => `${loc.location_name} ${loc.location_address} ${loc.location_city} ${loc.location_zip}`.toLowerCase().includes(search.toLowerCase()));
 
+  //Flow for the search + props
+  //1. user types in the search box
+  //2. onChange calls the setSearch with the new value, search state updates
+  //3. React re-renders the locations page
+  //4. filtered recalculates with new search value
+  //5. .map() loops over filtered
+  //6. each loc gets passed as location prop into locationCard
+  //7. Only matching cards render
+
   return (
     <div>
       {/* Page header */}

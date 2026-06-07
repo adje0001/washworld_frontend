@@ -19,7 +19,7 @@ const AuthContext = createContext<AuthContextType | null>(null);
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  // useEffect for side effects when the page loads
+  // useEffect for side effects whenever the page loads
   // On mount it checks if a jwt exists in localStorage and sets SetisloggedIn accordingly
   //[] means it only runs once
   useEffect(() => {
