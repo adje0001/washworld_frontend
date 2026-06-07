@@ -8,7 +8,7 @@ interface Car {
 import { useState } from "react";
 import { baseUrl } from "../../lib/config";
 
-// Custom hook — requirement: at least one custom hook
+// Custom hook requirement
 // useCars fetches the logged-in users cars and provides addCar and deleteCar mutations
 // Requires the JWT token to authorize both requests against the backend
 // carBrand and carPlate are declared in this useCars function, so everything in here can read their value
@@ -19,7 +19,7 @@ export function useCars(token: string | null, onUnauthorized?: () => void) {
   const [carPlate, setCarPlate] = useState("");
 
   //Fetch the specific users cars from the backend in an array object
-  //Refetch so we can update the list for every change
+  //Refetch so we can update the list for every change, triggers the queryFn
   //REST API integration  GET /api/cars with correct Authorization header
   const { data: cars, refetch: refetchCars } = useQuery({
     queryKey: ["cars", token],

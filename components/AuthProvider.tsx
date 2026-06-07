@@ -53,7 +53,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 //AuthContext the channel React uses to pass them down
 //useAuthContext() what components call to receive them
 
-//Custom hook = requirement at least one custom hook
+//Custom hook
 //Reads what the AuthProvider put into context, isLoggedIn, login and logout
 //if (!ctx) check is a safetyguard, if useAuthContext() is called in a component that isn't wrapped, it is null
 //It returns ctx so any component that calls useAuthContext() gets the 3 values back

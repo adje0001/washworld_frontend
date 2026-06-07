@@ -38,12 +38,11 @@ export function LoginForm() {
     setValidationError(null);
     setServerError(null);
 
-    //isPending tracks whether the login request is in flight.
-    //Set to true just before the fetch and back to false in the finally block (which runs whether the fetch succeeds or fails).
+    //isPending tracks whether the login request is in flight
+    //Set to true just before the fetch and back to false in the finally block (which runs whether the fetch succeeds or fails)
     setIsPending(true);
 
-    //awaits the fetch from the AuthProvider where we handle the logic
-    //We do a try if the login is a success
+    //We do a try if the login is a success, login() calls and awaits the fetch from the AuthProvider where we handle the logic
     //And a catch if the login throws an error, we check the backend message and show a specific error
     //If the backend says "verify", the user hasnt verified their email yet
     //Otherwise we show a generic wrong credentials message

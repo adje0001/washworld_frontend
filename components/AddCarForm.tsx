@@ -13,7 +13,8 @@ interface Props {
   addCarError: unknown;
 }
 
-// Component-based architecture — add car form extracted from profile page
+// Component-based architecture  add car form extracted from profile page
+//Destructuring all props directly from useCars
 export function AddCarForm({ carBrand, setCarBrand, carPlate, setCarPlate, addCar, isAddingCar, addCarFailed, addCarError }: Props) {
   // State management — carSubmitAttempted lives here since it belongs to this form
   const [carSubmitAttempted, setCarSubmitAttempted] = useState(false);

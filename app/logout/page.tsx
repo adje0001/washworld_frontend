@@ -9,7 +9,7 @@ export default function Logout() {
   const router = useRouter();
   const [hasToken, setHasToken] = useState<boolean | null>(null);
 
-  //useEffect for side effects — runs on client only, so localStorage is safe to access
+  //useEffect for side effects runs on client only, so localStorage is safe to access
   //If hasToken = false we redirect to login
   //hasToken is called inside useEffect which only runs on the client
   useEffect(() => {
@@ -21,14 +21,13 @@ export default function Logout() {
       return () => clearTimeout(timer);
     }
 
-    //[] means the useEffect only runs once on mount
     //If hasToken = true we call logout() and handle the logic in AuthProvider
     //Sets isLoggedIn to false in the AuthProvider and removes JWT
     //return () => clearTimeout(timer) is a cleanup function
     logout();
     const timer = setTimeout(() => router.push("/"), 2000);
     return () => clearTimeout(timer);
-  }, []);
+  }, []); //[] means the useEffect only runs once on mount
 
   //Returns null = renders nothing while the useEffect hasnt run yet
   if (hasToken === null) return null;

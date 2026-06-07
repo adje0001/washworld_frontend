@@ -15,10 +15,10 @@ export default function Profile() {
   const router = useRouter();
   const { logout } = useAuthContext();
 
-  // useEffect for side effects — reads JWT from localStorage after mount
+  // useEffect for side effects reads JWT from localStorage after mount
   useEffect(() => {
     setToken(localStorage.getItem("jwt"));
-  }, []);
+  }, []); //Dependency array runs on mount
 
   //Redirect to home after showing expiry message
   //Detects that sessionExpired is now true
@@ -37,7 +37,6 @@ export default function Profile() {
     isError,
     error,
     //useProfile is called, the arrow function is passed onUnauthorized as second argument
-    //React goes to the useProfile file, runs the function and returns the data to this page
   } = useProfile(token, () => {
     logout();
     //Now true, state changes and the component re-renders
@@ -46,12 +45,13 @@ export default function Profile() {
   });
 
   //Calls the hook from useCars
+  //Destructures the return values from the hook
   const { cars, carBrand, setCarBrand, carPlate, setCarPlate, addCar, isAddingCar, addCarFailed, addCarError, deleteCar } = useCars(token, () => {
     logout();
     setSessionExpired(true);
   });
 
-  // Conditional rendering — session expired
+  // Conditional rendering: session expired
   //If sessionExpired = true
   if (sessionExpired)
     return (
