@@ -51,7 +51,7 @@ export function LoginForm() {
       router.push("/profile");
     } catch (e) {
       const msg = (e as Error).message;
-      if (msg.includes("verify")) {
+      if (msg.includes("verif")) {
         setServerError("Du skal verificere din email før du kan logge ind.");
       } else {
         setServerError("Forkert email eller adgangskode");

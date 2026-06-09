@@ -87,7 +87,7 @@ describe("Login page", () => {
     cy.contains("Forkert email eller adgangskode", { timeout: 5000 }).should("be.visible");
   });
 
-  // Checks that an unverified account shows the correct Danish error — requires an unverified account in the DB
+  // Checks that an unverified account shows the correct Danish error, requires an unverified account in the DB
   it("shows error when account is not verified", () => {
     cy.get('input[type="email"]').type("unverified@test.dk");
     cy.get('input[type="password"]').type("password");

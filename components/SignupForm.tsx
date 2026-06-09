@@ -38,7 +38,7 @@ export function SignupForm() {
   });
 
   const handleSubmit = (e: { preventDefault: () => void }) => {
-    e.preventDefault();
+    e.preventDefault(); //prevents reloading when a form is submitted
     const err = validateForm(firstName, email, password, confirmPassword);
     if (err) {
       setValidationError(err);

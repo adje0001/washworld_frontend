@@ -15,6 +15,5 @@ export function useLocations() {
       return res.json();
     },
     staleTime: 10 * 60 * 1000, //Fresh for 10 minutes, locationsdata is basically static
-    gcTime: 0,
   });
 }

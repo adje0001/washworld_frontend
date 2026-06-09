@@ -34,13 +34,12 @@ export function useCars(token: string | null, onUnauthorized?: () => void) {
       if (!res.ok) throw new Error(await res.text());
       return res.json();
     },
-    staleTime: 5 * 60 * 1000,
     gcTime: 0,
-    enabled: !!token,
+    enabled: !!token, //!! = tells tanstack to only fire the request when token has a value
     retry: false,
   });
 
-  // REST API integration — POST /api/cars with car brand and license plate as JSON
+  // REST API integration POST /api/cars with car brand and license plate as JSON
   // Add car mutation, POSTs brand and license plate to the backend
   const {
     mutate: addCar,
@@ -104,7 +103,7 @@ export function useCars(token: string | null, onUnauthorized?: () => void) {
 
     //Always sync with server after mutation settles, runs regardless of succes or failure
     //Runs when the DELETE request finishes
-    //Calls invalidateQueries, which tankstack sees and refetches the GET
+    //Calls invalidateQueries marks the data stale, which tankstack sees and refetches the GET
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: ["cars", token] });
     },
